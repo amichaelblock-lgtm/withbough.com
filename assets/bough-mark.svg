@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Bough">
+  <rect width="64" height="64" rx="16" fill="#faf4e7"/>
+  <g fill="none" stroke="#5d7253" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 52V20"/>
+    <path d="M32 32c.5-11 7.6-17.6 19-18-.8 11.4-7.9 18-19 18z"/>
+    <path d="M32 41c-.5-9-6.4-14.5-16.4-15 .8 10 7.2 15.3 16.4 15z"/>
+    <path d="M32 24c.3-5.4 3.5-8.6 9-9" stroke="#b9924f"/>
+  </g>
+</svg>

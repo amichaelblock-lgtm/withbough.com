@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bough, a private place for your whole family</title>
+  <meta name="description" content="A living record your family builds together. Share today's moments, tie every memory to the people it is about, and grow one family tree, kept only inside your family.">
+  <meta property="og:title" content="Bough">
+  <meta property="og:description" content="A living record your family builds together.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/bough-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="./" aria-label="Bough home">
+        <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="color: var(--sage-deep)" aria-hidden="true">
+          <path d="M16 27V11"/>
+          <path d="M16 17c.3-5.6 3.8-8.8 9.5-9-.4 5.7-3.9 9-9.5 9z"/>
+          <path d="M16 21c-.3-4.5-3.2-7.3-8.2-7.5.4 5 3.6 7.7 8.2 7.5z"/>
+          <path d="M16 13c.1-2.7 1.7-4.3 4.5-4.5" style="stroke: var(--gold)"/>
+        </svg>
+        <span class="wordmark">Bough</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <div class="nav-links">
+          <a href="#what">What it is</a>
+          <a href="#tree">The tree</a>
+          <a href="#together">Together</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+        <a class="btn btn-primary" href="https://apps.apple.com/app/id6780286740" target="_blank" rel="noopener" style="min-height:44px;padding:0.6rem 1.2rem;font-size:1rem">Get Bough</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 5.1 hero — the living family space -->
+    <section class="hero wrap">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">A private family app</p>
+          <h1>A private place where your whole family shows up.</h1>
+          <p class="lead">Share today's moments, tie every memory to the people it is about, and grow one family tree together. Kept only inside your family.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://apps.apple.com/app/id6780286740" target="_blank" rel="noopener">Get Bough</a>
+            <a class="btn btn-quiet" href="#how">See how it works</a>
+          </div>
+          <p class="hero-note">Free to start. One plan covers everyone in the family.</p>
+        </div>
+
+        <div class="tree-stage" role="img" aria-label="A living family tree. Rose and Sam at the top, with a shared photo from 1963 at the shore. Their children Mara and June below. Mara and Leo together, with their children Ivy and Theo. A memory was added to Theo's branch today.">
+          <svg viewBox="0 0 760 470" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="warm" x="-40%" y="-40%" width="180%" height="180%">
+                <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#433a2c" flood-opacity="0.14"/>
+              </filter>
+              <clipPath id="photoClip"><circle cx="118" cy="118" r="27"/></clipPath>
+            </defs>
+
+            <!-- branches -->
+            <path class="branch" style="--len:170; --d:0.1s" d="M282 92 H438"/>
+            <path class="branch" style="--len:280; --d:0.5s" d="M360 110 C360 170 180 170 180 208"/>
+            <path class="branch" style="--len:280; --d:0.5s" d="M360 110 C360 170 560 170 560 208"/>
+            <path class="branch" style="--len:130; --d:1.0s" d="M212 242 H328"/>
+            <path class="branch" style="--len:180; --d:1.3s" d="M270 260 C270 316 210 320 210 346"/>
+            <path class="branch" style="--len:180; --d:1.3s" d="M270 260 C270 316 330 320 330 346"/>
+            <!-- thin connector from Rose to the shared photo -->
+            <path class="branch" style="--len:120; --d:1.6s" d="M224 82 C180 84 150 96 138 106" stroke-dasharray="2 5" stroke-width="1.6"/>
+
+            <!-- marriage knots -->
+            <g class="person" style="--pd:0.35s">
+              <path d="M360 82 L370 92 L360 102 L350 92 Z" fill="none" stroke="#7c8b6f" stroke-width="2"/>
+            </g>
+            <g class="person" style="--pd:0.95s">
+              <path d="M270 232 L280 242 L270 252 L260 242 Z" fill="none" stroke="#7c8b6f" stroke-width="2"/>
+            </g>
+
+            <!-- shared photo moment, tagged to Rose -->
+            <g class="life" style="--pd:2s" filter="url(#warm)">
+              <circle cx="118" cy="118" r="30" fill="var(--disc-rim)"/>
+              <g clip-path="url(#photoClip)">
+                <rect x="91" y="91" width="54" height="54" fill="#dcc79a"/>
+                <path d="M91 138 l16-16 12 10 12-12 14 14 v20 h-54 z" fill="#9a7f52"/>
+                <circle cx="132" cy="104" r="6" fill="#efe3c2"/>
+              </g>
+              <circle cx="118" cy="118" r="30" fill="none" stroke="var(--line)" stroke-width="1.4"/>
+              <text x="118" y="164" class="life-cap" text-anchor="middle">1963, at the shore</text>
+            </g>
+
+            <!-- people -->
+            <g class="person" style="--pd:0.5s" filter="url(#warm)">
+              <circle cx="250" cy="92" r="34" fill="var(--disc-rim)"/>
+              <circle cx="250" cy="92" r="31" fill="#b0563a"/>
+              <text x="250" y="92" fill="#fcf8ee" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="27" text-anchor="middle" dominant-baseline="central">R</text>
+              <text x="250" y="144" fill="var(--ink)" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="16" text-anchor="middle">Rose</text>
+            </g>
+            <g class="person" style="--pd:0.5s" filter="url(#warm)">
+              <circle cx="470" cy="92" r="34" fill="var(--disc-rim)"/>
+              <circle cx="470" cy="92" r="31" fill="#7c8b6f"/>
+              <text x="470" y="92" fill="#fcf8ee" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="27" text-anchor="middle" dominant-baseline="central">S</text>
+              <text x="470" y="144" fill="var(--ink)" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="16" text-anchor="middle">Sam</text>
+            </g>
+
+            <g class="person" style="--pd:1.0s" filter="url(#warm)">
+              <circle cx="180" cy="242" r="34" fill="var(--disc-rim)"/>
+              <circle cx="180" cy="242" r="31" fill="#c98a4b"/>
+              <text x="180" y="242" fill="#fcf8ee" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="27" text-anchor="middle" dominant-baseline="central">M</text>
+              <text x="180" y="294" fill="var(--ink)" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="16" text-anchor="middle">Mara</text>
+            </g>
+            <g class="person" style="--pd:1.0s" filter="url(#warm)">
+              <circle cx="360" cy="242" r="34" fill="var(--disc-rim)"/>
+              <circle cx="360" cy="242" r="31" fill="#b9924f"/>
+              <text x="360" y="242" fill="#fcf8ee" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="27" text-anchor="middle" dominant-baseline="central">L</text>
+              <text x="360" y="294" fill="var(--ink)" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="16" text-anchor="middle">Leo</text>
+            </g>
+            <g class="person" style="--pd:1.0s" filter="url(#warm)">
+              <circle cx="560" cy="242" r="34" fill="var(--disc-rim)"/>
+              <circle cx="560" cy="242" r="31" fill="#5d7253"/>
+              <text x="560" y="242" fill="#fcf8ee" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="27" text-anchor="middle" dominant-baseline="central">J</text>
+              <text x="560" y="294" fill="var(--ink)" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="16" text-anchor="middle">June</text>
+            </g>
+
+            <g class="person" style="--pd:1.6s" filter="url(#warm)">
+              <circle cx="210" cy="380" r="34" fill="var(--disc-rim)"/>
+              <circle cx="210" cy="380" r="31" fill="#a26a4a"/>
+              <text x="210" y="380" fill="#fcf8ee" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="27" text-anchor="middle" dominant-baseline="central">I</text>
+              <text x="210" y="432" fill="var(--ink)" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="16" text-anchor="middle">Ivy</text>
+            </g>
+            <g class="person" style="--pd:1.6s" filter="url(#warm)">
+              <circle cx="330" cy="380" r="34" fill="var(--disc-rim)"/>
+              <circle cx="330" cy="380" r="31" fill="#8a9b6f"/>
+              <text x="330" y="380" fill="#fcf8ee" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="27" text-anchor="middle" dominant-baseline="central">T</text>
+              <text x="330" y="432" fill="var(--ink)" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="16" text-anchor="middle">Theo</text>
+            </g>
+
+            <!-- added today marker on Theo's living node -->
+            <g class="life" style="--pd:2.2s">
+              <circle class="pulse" cx="358" cy="356" r="5" fill="var(--amber)"/>
+              <circle cx="358" cy="356" r="4" fill="var(--amber)"/>
+              <text x="372" y="360" class="life-mark">added today</text>
+            </g>
+          </svg>
+          <p class="tree-caption">Everyone in the family builds it together. Add a parent, a grandparent, a partner, a child, and the tree grows.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.2 the everyday, together -->
+    <section class="everyday section" id="what">
+      <div class="wrap">
+        <div class="everyday-grid">
+          <div class="section-head">
+            <p class="eyebrow">Day to day</p>
+            <h2>Something worth opening this week.</h2>
+            <p class="lead">A graduation, a Sunday dinner, a photo someone finally scanned. Add it and everyone in the family sees it the same day, tied to the people it is about.</p>
+          </div>
+          <div class="vignettes">
+            <div class="vignette">
+              <svg class="v-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3.5" y="6" width="17" height="12.5" rx="2.4"/>
+                <path d="M4 16.5 l4.4-4 3 2.6 3.4-3.4 4.7 4.6"/>
+                <circle cx="15.4" cy="10" r="1.6"/>
+              </svg>
+              <div>
+                <h3>Shared the same day</h3>
+                <p>Rose scans a photo from the shore and it reaches the whole family that afternoon.</p>
+              </div>
+            </div>
+            <div class="vignette">
+              <svg class="v-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="9" cy="8.4" r="3"/>
+                <path d="M3.8 18.4c.6-3.4 2.7-5.2 5.2-5.2s4.6 1.8 5.2 5.2"/>
+                <path d="M16.5 7.5 h4"/>
+                <path d="M18.5 5.5 v4"/>
+              </svg>
+              <div>
+                <h3>Tagged to the people in it</h3>
+                <p>Mark that Mara and Leo are in the photo, and it lands on each of their branches.</p>
+              </div>
+            </div>
+            <div class="vignette">
+              <svg class="v-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3.5" y="6.5" width="17" height="11" rx="2"/>
+                <path d="M3.5 8 L12 13 L20.5 8"/>
+                <path d="M15.5 14.5 h3.5"/>
+              </svg>
+              <div>
+                <h3>A postcard, sent privately</h3>
+                <p>Leo sends Ivy a postcard for her birthday. No one outside the family ever sees it.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.3 made together -->
+    <section class="section wrap" id="together">
+      <div class="split">
+        <div class="split-copy">
+          <p class="eyebrow">Together</p>
+          <h2>Everyone adds what they have.</h2>
+          <p>A keepsake nobody could finish alone comes together when the whole family adds to it. One person starts it, the others fill it in, and the branch of the person it is about fills with a lifetime.</p>
+        </div>
+        <div class="split-visual" aria-hidden="true">
+          <svg viewBox="0 0 340 260" xmlns="http://www.w3.org/2000/svg">
+            <!-- three relatives feeding into one person's page -->
+            <g fill="none" stroke="var(--line)" stroke-width="1.6" stroke-linecap="round">
+              <path d="M64 54 C120 54 150 96 196 116"/>
+              <path d="M52 130 C120 130 150 130 196 130"/>
+              <path d="M64 206 C120 206 150 164 196 144"/>
+            </g>
+            <g font-family="Fraunces, serif" font-weight="600" font-size="18" text-anchor="middle">
+              <circle cx="44" cy="54" r="22" fill="#c98a4b"/><text x="44" y="54" fill="#fcf8ee" dominant-baseline="central">M</text>
+              <circle cx="34" cy="130" r="22" fill="#7c8b6f"/><text x="34" y="130" fill="#fcf8ee" dominant-baseline="central">J</text>
+              <circle cx="44" cy="206" r="22" fill="#b0563a"/><text x="44" y="206" fill="#fcf8ee" dominant-baseline="central">S</text>
+            </g>
+            <!-- the person's page filling with contributions -->
+            <rect x="200" y="70" width="120" height="120" rx="14" fill="var(--surface)" stroke="var(--line)" stroke-width="1.6"/>
+            <circle cx="230" cy="100" r="14" fill="#b9924f"/>
+            <text x="230" y="100" fill="#fcf8ee" font-family="Fraunces, serif" font-weight="600" font-size="13" text-anchor="middle" dominant-baseline="central">R</text>
+            <text x="252" y="104" fill="var(--ink)" font-family="Fraunces, serif" font-weight="500" font-size="14">Rose</text>
+            <g fill="var(--surface-alt)" stroke="var(--hairline)" stroke-width="1.2">
+              <rect x="214" y="124" width="30" height="30" rx="5"/>
+              <rect x="250" y="124" width="30" height="30" rx="5"/>
+              <rect x="286" y="124" width="20" height="30" rx="5"/>
+              <rect x="214" y="160" width="30" height="20" rx="5"/>
+              <rect x="250" y="160" width="56" height="20" rx="5"/>
+            </g>
+            <path d="M222 139 l6-5 4 3.5 5-5 5 5" fill="none" stroke="var(--sage)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.4 the tree -->
+    <section class="tree-feature section" id="tree">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">The heart of it</p>
+          <h2>One family tree, built by everyone.</h2>
+          <p class="lead">Bough's tree holds real families: remarriages, step-parents, the relatives no one has a photo of yet. Tap a person to see everything about them in one place. Tag a photo of two people once, and it shows on both their branches.</p>
+        </div>
+
+        <div class="tree-reveal" role="img" aria-label="A larger family tree showing a remarriage, a step-parent, a relative with no photo yet, and one photo tagged to two siblings so it appears on both their branches.">
+          <svg viewBox="0 0 820 420" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="warm2" x="-40%" y="-40%" width="180%" height="180%">
+                <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#433a2c" flood-opacity="0.14"/>
+              </filter>
+            </defs>
+
+            <!-- generation 1: Rose married Sam, later married Walt (remarriage) -->
+            <path class="rbranch" style="--len:120; --d:0.1s" d="M250 78 H370"/>
+            <path class="rbranch" style="--len:150; --d:0.3s" d="M450 78 H600"/>
+            <!-- down to children -->
+            <path class="rbranch" style="--len:250; --d:0.7s" d="M310 96 C310 150 200 152 200 196"/>
+            <path class="rbranch" style="--len:250; --d:0.7s" d="M310 96 C310 150 420 152 420 196"/>
+            <!-- step link (dashed) from Walt to the household -->
+            <path class="rbranch" style="--len:150; --d:0.9s" d="M525 96 C525 150 470 160 430 190" stroke-dasharray="3 6" stroke-width="1.8"/>
+            <!-- grandchildren -->
+            <path class="rbranch" style="--len:120; --d:1.2s" d="M150 230 H250"/>
+            <path class="rbranch" style="--len:150; --d:1.4s" d="M200 248 C200 300 160 306 160 332"/>
+            <path class="rbranch" style="--len:150; --d:1.4s" d="M200 248 C200 300 240 306 240 332"/>
+
+            <!-- knots -->
+            <g class="rperson" style="--pd:0.3s"><path d="M410 68 L420 78 L410 88 L400 78 Z" fill="none" stroke="#7c8b6f" stroke-width="2"/></g>
+            <g class="rperson" style="--pd:0.5s"><path d="M410 68 L420 78 L410 88 L400 78 Z" fill="none" stroke="#a89370" stroke-width="1.6" stroke-dasharray="2 3" transform="translate(15 0)"/></g>
+
+            <!-- shared photo tagged to two siblings -->
+            <g class="rperson" style="--pd:1.5s" filter="url(#warm2)">
+              <circle cx="310" cy="255" r="26" fill="var(--disc-rim)"/>
+              <circle cx="310" cy="255" r="26" fill="none" stroke="var(--line)" stroke-width="1.4"/>
+              <rect x="291" y="243" width="38" height="26" rx="3" fill="#dcc79a"/>
+              <path d="M291 263 l10-9 7 6 8-7 13 12 v4 h-38 z" fill="#9a7f52"/>
+              <circle cx="322" cy="250" r="4" fill="#efe3c2"/>
+            </g>
+            <path class="rbranch" style="--len:60; --d:1.6s" d="M284 255 C255 250 220 210 205 200" stroke-width="1.6"/>
+            <path class="rbranch" style="--len:60; --d:1.6s" d="M336 255 C365 250 405 210 420 200" stroke-width="1.6"/>
+            <text x="310" y="300" fill="var(--muted)" font-family="Karla, sans-serif" font-size="13" text-anchor="middle">on both their branches</text>
+
+            <!-- people -->
+            <g class="rperson" style="--pd:0.4s" filter="url(#warm2)">
+              <circle cx="216" cy="78" r="30" fill="var(--disc-rim)"/><circle cx="216" cy="78" r="27" fill="#b0563a"/>
+              <text x="216" y="78" fill="#fcf8ee" font-family="Fraunces, serif" font-weight="600" font-size="23" text-anchor="middle" dominant-baseline="central">R</text>
+              <text x="216" y="126" fill="var(--ink)" font-family="Fraunces, serif" font-weight="500" font-size="15" text-anchor="middle">Rose</text>
+            </g>
+            <g class="rperson" style="--pd:0.4s" filter="url(#warm2)">
+              <circle cx="404" cy="78" r="30" fill="var(--disc-rim)"/><circle cx="404" cy="78" r="27" fill="#7c8b6f"/>
+              <text x="404" y="78" fill="#fcf8ee" font-family="Fraunces, serif" font-weight="600" font-size="23" text-anchor="middle" dominant-baseline="central">S</text>
+              <text x="404" y="126" fill="var(--ink)" font-family="Fraunces, serif" font-weight="500" font-size="15" text-anchor="middle">Sam</text>
+            </g>
+            <g class="rperson" style="--pd:0.6s" filter="url(#warm2)">
+              <circle cx="634" cy="78" r="30" fill="var(--disc-rim)"/><circle cx="634" cy="78" r="27" fill="#b9924f"/>
+              <text x="634" y="78" fill="#fcf8ee" font-family="Fraunces, serif" font-weight="600" font-size="23" text-anchor="middle" dominant-baseline="central">W</text>
+              <text x="634" y="126" fill="var(--ink)" font-family="Fraunces, serif" font-weight="500" font-size="15" text-anchor="middle">Walt</text>
+              <text x="634" y="144" fill="var(--muted)" font-family="Karla, sans-serif" font-size="12" text-anchor="middle">step-parent</text>
+            </g>
+
+            <g class="rperson" style="--pd:1.0s" filter="url(#warm2)">
+              <circle cx="200" cy="222" r="30" fill="var(--disc-rim)"/><circle cx="200" cy="222" r="27" fill="#c98a4b"/>
+              <text x="200" y="222" fill="#fcf8ee" font-family="Fraunces, serif" font-weight="600" font-size="23" text-anchor="middle" dominant-baseline="central">M</text>
+              <text x="200" y="270" fill="var(--ink)" font-family="Fraunces, serif" font-weight="500" font-size="15" text-anchor="middle">Mara</text>
+            </g>
+            <g class="rperson" style="--pd:1.0s" filter="url(#warm2)">
+              <circle cx="420" cy="222" r="30" fill="var(--disc-rim)"/><circle cx="420" cy="222" r="27" fill="#5d7253"/>
+              <text x="420" y="222" fill="#fcf8ee" font-family="Fraunces, serif" font-weight="600" font-size="23" text-anchor="middle" dominant-baseline="central">J</text>
+              <text x="420" y="270" fill="var(--ink)" font-family="Fraunces, serif" font-weight="500" font-size="15" text-anchor="middle">June</text>
+            </g>
+
+            <!-- relative with no photo yet -->
+            <g class="rperson" style="--pd:1.3s">
+              <circle cx="160" cy="356" r="27" fill="none" stroke="var(--line)" stroke-width="1.8" stroke-dasharray="4 5"/>
+              <path d="M160 350 v-1 M160 349 c-.1-2 1.2-3.2 3.2-3.3 M160 349 c.1-2 -1.2-3.2 -3.2-3.3" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+              <text x="160" y="358" fill="var(--muted)" font-family="Fraunces, serif" font-size="20" text-anchor="middle" dominant-baseline="central">?</text>
+              <text x="160" y="402" fill="var(--muted)" font-family="Karla, sans-serif" font-size="13" text-anchor="middle">no photo yet</text>
+            </g>
+            <g class="rperson" style="--pd:1.3s" filter="url(#warm2)">
+              <circle cx="240" cy="356" r="27" fill="var(--disc-rim)"/><circle cx="240" cy="356" r="24" fill="#a26a4a"/>
+              <text x="240" y="356" fill="#fcf8ee" font-family="Fraunces, serif" font-weight="600" font-size="21" text-anchor="middle" dominant-baseline="central">I</text>
+              <text x="240" y="402" fill="var(--ink)" font-family="Fraunces, serif" font-weight="500" font-size="15" text-anchor="middle">Ivy</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.5 deep ground: past, present, future -->
+    <section class="statement section" id="deep">
+      <div class="wrap">
+        <p class="eyebrow">What it holds</p>
+        <p class="big">A lifetime, not just this week. Bough holds the whole family story across <em>past, present, and the years ahead</em>.</p>
+        <div class="threads">
+          <div class="thread">
+            <span class="tag">The past</span>
+            <h3>Rescue the old</h3>
+            <p>Scan the photographs, letters, and certificates in the closet before they fade. Record a story in the voice of the person who lived it.</p>
+          </div>
+          <div class="thread">
+            <span class="tag">The present</span>
+            <h3>Keep today</h3>
+            <p>The moments as they happen, seen by the whole family the same day.</p>
+          </div>
+          <div class="thread">
+            <span class="tag">The years ahead</span>
+            <h3>Set some aside</h3>
+            <p>Seal a memory in the vault to open on a later birthday, an anniversary, or a day you choose.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.6 how it works -->
+    <section class="section wrap" id="how">
+      <div class="section-head">
+        <p class="eyebrow">How it works</p>
+        <h2>Three steps, and the family takes it from there.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="num" aria-hidden="true">1</span>
+          <h3>Capture</h3>
+          <p>Scan a photo or letter, record a voice, or add a video. Bough reads the date and place so you do not type them.</p>
+        </div>
+        <div class="step">
+          <span class="num" aria-hidden="true">2</span>
+          <h3>Tie it to people</h3>
+          <p>Mark who a memory is about. It appears on each person's branch, so nothing floats unattached.</p>
+        </div>
+        <div class="step">
+          <span class="num" aria-hidden="true">3</span>
+          <h3>Share within the family</h3>
+          <p>Everyone you invite sees it, adds what they have, and comments. Nothing is public.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.7 privacy + trust -->
+    <section class="trust section" id="privacy">
+      <div class="wrap">
+        <p class="eyebrow">Private by design</p>
+        <h2>A private circle. No ads, never sold.</h2>
+        <p class="lead">Memories stay inside your family, never public, never sold, never used to sell ads, and never fed to an algorithm. You choose who is in the circle. Sign in with Apple, Google, or your email.</p>
+        <div class="trust-grid">
+          <div class="trust-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="5" y="10.5" width="14" height="10" rx="2.4"/>
+              <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>
+              <path d="M12 14v2.5"/>
+            </svg>
+            <div>
+              <h3>Only your family sees it</h3>
+              <p>A family is the sharing boundary. By default a memory is visible to your family and no one else.</p>
+            </div>
+          </div>
+          <div class="trust-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3.5 5 6.4v4.6c0 4.4 3 7.6 7 9 4-1.4 7-4.6 7-9V6.4z"/>
+              <path d="M9 12.2l2.2 2.2 4-4.4"/>
+            </svg>
+            <div>
+              <h3>No ads, ever</h3>
+              <p>There is no ad business here. Nothing you keep is turned into a target for someone else.</p>
+            </div>
+          </div>
+          <div class="trust-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 5l16 14"/>
+              <path d="M9 6.5A3 3 0 0 1 15 8c0 2.4-3 3.4-3 5.6"/>
+              <circle cx="12" cy="18" r="0.6" fill="currentColor"/>
+            </svg>
+            <div>
+              <h3>We never sell your memories</h3>
+              <p>Your photos, letters, and recordings are yours. We do not sell them or use them to build profiles.</p>
+            </div>
+          </div>
+          <div class="trust-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="9" cy="9" r="3"/>
+              <path d="M3.5 19c.7-3.6 2.9-5.5 5.5-5.5s4.8 1.9 5.5 5.5"/>
+              <path d="M16 8.5 18 10.5 21.5 6.5"/>
+            </svg>
+            <div>
+              <h3>You control who is in the circle</h3>
+              <p>Invite the family you want, and remove anyone. The record stays with the people who own it.</p>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top:2rem"><a class="inline-link" href="privacy/">Read the Privacy Policy</a></p>
+      </div>
+    </section>
+
+    <!-- 5.8 anyone can use it -->
+    <section class="anyone section wrap">
+      <div class="anyone-inner">
+        <div>
+          <p class="eyebrow">For every age</p>
+          <h2>Made for the whole family, eight to eighty.</h2>
+          <p>No genealogy degree. Add a relationship and the branch grows. Text scales to whoever is reading, and the same simple app works for every age.</p>
+        </div>
+        <div class="anyone-visual" aria-hidden="true">
+          <svg viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M70 70 C70 118 190 100 190 132" fill="none" stroke="var(--line)" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="70" cy="62" r="40" fill="var(--surface-alt)" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="70" y="62" fill="var(--terracotta)" font-family="Fraunces, serif" font-weight="600" font-size="34" text-anchor="middle" dominant-baseline="central">80</text>
+            <circle cx="190" cy="140" r="26" fill="var(--surface-alt)" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="190" y="140" fill="var(--sage-deep)" font-family="Fraunces, serif" font-weight="600" font-size="22" text-anchor="middle" dominant-baseline="central">8</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.9 pricing -->
+    <section class="pricing section" id="pricing">
+      <div class="wrap">
+        <p class="eyebrow">Pricing</p>
+        <h2 style="font-size:clamp(1.9rem,4.5vw,2.8rem);max-width:18ch">One plan for the whole family.</h2>
+        <p class="lead" style="margin-top:1.1rem">Start free. When you need more room, one subscription covers everyone in the family. Which member pays is just bookkeeping.</p>
+
+        <div class="price-grid">
+          <div class="plan">
+            <h3>Free</h3>
+            <p class="plan-sub">Room to begin your tree and first memories.</p>
+            <div class="price">$0</div>
+            <ul>
+              <li><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 11.6 9 16l8.4-9.6"/></svg>Build your family tree</li>
+              <li><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 11.6 9 16l8.4-9.6"/></svg>Add photos, letters, and recordings</li>
+              <li><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 11.6 9 16l8.4-9.6"/></svg>Share privately with your family</li>
+            </ul>
+            <a class="btn btn-quiet" href="https://apps.apple.com/app/id6780286740" target="_blank" rel="noopener">Get Bough</a>
+          </div>
+
+          <div class="plan featured">
+            <h3>Family plan</h3>
+            <p class="plan-sub">More storage and the vault, for everyone in the family.</p>
+            <div class="price">$7.99 <span>/ month</span></div>
+            <p class="price-alt">or $64.99 / year</p>
+            <ul>
+              <li><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 11.6 9 16l8.4-9.6"/></svg>Everything in Free</li>
+              <li><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 11.6 9 16l8.4-9.6"/></svg>More storage for photos and video</li>
+              <li><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 11.6 9 16l8.4-9.6"/></svg>The vault for sealed memories</li>
+              <li><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 11.6 9 16l8.4-9.6"/></svg>Search by what you remember</li>
+            </ul>
+            <p class="covers">One subscription covers everyone in the family.</p>
+            <a class="btn btn-primary" href="https://apps.apple.com/app/id6780286740" target="_blank" rel="noopener">Get Bough</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.10 closing -->
+    <section class="closing section">
+      <div class="wrap">
+        <h2>Start your family's Bough.</h2>
+        <p>Free to start. Invite the family when you are ready.</p>
+        <a class="btn btn-primary" href="https://apps.apple.com/app/id6780286740" target="_blank" rel="noopener">Get Bough</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="./" aria-label="Bough home">
+            <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="color: var(--sage-deep)" aria-hidden="true">
+              <path d="M16 27V11"/>
+              <path d="M16 17c.3-5.6 3.8-8.8 9.5-9-.4 5.7-3.9 9-9.5 9z"/>
+              <path d="M16 21c-.3-4.5-3.2-7.3-8.2-7.5.4 5 3.6 7.7 8.2 7.5z"/>
+            </svg>
+            <span class="wordmark" style="font-size:1.3rem">Bough</span>
+          </a>
+          <p>A private place for your whole family. Share today's moments, tie every memory to the people it is about, and grow one family tree, kept only inside your family.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Product</h4>
+            <a href="#what">What it is</a>
+            <a href="#tree">The tree</a>
+            <a href="#together">Together</a>
+            <a href="#pricing">Pricing</a>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <a href="support/">Support</a>
+            <a href="terms/">Terms</a>
+            <a href="privacy/">Privacy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <span>© 2026 MAABLAB LLC. Bough is a product of MAABLAB LLC.</span>
+        <span>withbough.com</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // One motion moment: draw the family tree in section 5.4 as it scrolls into view.
+    // No JS means the tree is shown fully at rest; reduced motion shows it at rest too.
+    (function () {
+      var el = document.querySelector('.tree-reveal');
+      if (!el) return;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) { el.classList.add('in-view'); return; }
+      el.classList.add('armed');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { el.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.25 });
+      io.observe(el);
+    })();
+  </script>
+</body>
+</html>
