@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
   <title>Bough, a private place for your whole family</title>
   <meta name="description" content="A living record your family builds together. Share today's moments, tie every memory to the people it is about, and grow one family tree, kept only inside your family.">
   <meta property="og:title" content="Bough">
@@ -158,7 +159,7 @@
       <div class="wrap">
         <div class="everyday-grid">
           <div class="section-head">
-            <p class="eyebrow">Day to day</p>
+            <p class="kicker">Day to day</p>
             <h2>Something worth opening this week.</h2>
             <p class="lead">A graduation, a Sunday dinner, a photo someone finally scanned. Share it in the family feed, where relatives can comment and add memories of their own.</p>
           </div>
@@ -206,7 +207,7 @@
     <section class="section wrap" id="together">
       <div class="split">
         <div class="split-copy">
-          <p class="eyebrow">Together</p>
+          <p class="kicker">Together</p>
           <h2>Everyone adds what they have.</h2>
           <p>Start with a photo of your grandmother. Other family members can add their memories of her to the same branch.</p>
         </div>
@@ -245,7 +246,7 @@
     <section class="tree-feature section" id="tree">
       <div class="wrap">
         <div class="section-head">
-          <p class="eyebrow">The heart of it</p>
+          <p class="kicker">The heart of it</p>
           <h2>One family tree, built by everyone.</h2>
           <p class="lead">Bough's tree holds real families: remarriages, step-parents, the relatives no one has a photo of yet. Tap a person to see everything about them in one place. Tag a photo of two people once, and it shows on both their branches.</p>
         </div>
@@ -336,7 +337,7 @@
     <!-- 5.5 deep ground: past, present, future -->
     <section class="statement section" id="deep">
       <div class="wrap">
-        <p class="eyebrow">What it holds</p>
+        <p class="kicker">What it holds</p>
         <p class="big">What you can keep.</p>
         <div class="threads">
           <div class="thread">
@@ -360,33 +361,41 @@
 
     <!-- 5.6 how it works -->
     <section class="section wrap" id="how">
-      <div class="section-head">
-        <p class="eyebrow">How it works</p>
-        <h2>Add a memory to your tree.</h2>
-      </div>
-      <div class="steps">
-        <div class="step">
-          <span class="num" aria-hidden="true">1</span>
-          <h3>Capture</h3>
-          <p>Scan a photo or letter, record a story, or add a video. Bough reads the date and place so you don't have to type them.</p>
+      <div class="howto-inner">
+        <div class="section-head">
+          <p class="kicker">How it works</p>
+          <h2>Add a memory to your tree.</h2>
         </div>
-        <div class="step">
-          <span class="num" aria-hidden="true">2</span>
-          <h3>Tie it to people</h3>
-          <p>Mark who a memory is about. It appears on each person's branch.</p>
-        </div>
-        <div class="step">
-          <span class="num" aria-hidden="true">3</span>
-          <h3>Share within the family</h3>
-          <p>Everyone you invite can see it, add what they have, and comment.</p>
-        </div>
+        <ol class="steps">
+          <li class="step-item">
+            <span class="step-n" aria-hidden="true">1</span>
+            <div>
+              <h3>Capture</h3>
+              <p>Scan a photo or letter, record a story, or add a video. Bough reads the date and place so you don't have to type them.</p>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-n" aria-hidden="true">2</span>
+            <div>
+              <h3>Tie it to people</h3>
+              <p>Mark who a memory is about. It appears on each person's branch.</p>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-n" aria-hidden="true">3</span>
+            <div>
+              <h3>Share within the family</h3>
+              <p>Everyone you invite can see it, add what they have, and comment.</p>
+            </div>
+          </li>
+        </ol>
       </div>
     </section>
 
     <!-- 5.7 privacy + trust -->
     <section class="trust section" id="privacy">
       <div class="wrap">
-        <p class="eyebrow">Private by design</p>
+        <p class="kicker">Private by design</p>
         <h2>Your memories are never public.</h2>
         <div class="trust-grid">
           <div class="trust-line">
@@ -407,18 +416,7 @@
             </svg>
             <div>
               <h3>No ads, ever</h3>
-              <p>There is no ad business here. Your memories are never used to sell ads.</p>
-            </div>
-          </div>
-          <div class="trust-line">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M4 5l16 14"/>
-              <path d="M9 6.5A3 3 0 0 1 15 8c0 2.4-3 3.4-3 5.6"/>
-              <circle cx="12" cy="18" r="0.6" fill="currentColor"/>
-            </svg>
-            <div>
-              <h3>We never sell your memories</h3>
-              <p>Your photos, letters, and recordings are yours. We do not sell them or use them to build profiles.</p>
+              <p>There is no ad business here.</p>
             </div>
           </div>
         </div>
@@ -430,7 +428,7 @@
     <section class="anyone section wrap">
       <div class="anyone-inner">
         <div>
-          <p class="eyebrow">For every age</p>
+          <p class="kicker">For every age</p>
           <h2>Made for the whole family, eight to eighty.</h2>
           <p>Grandparents and teenagers can post photos and join the same conversation. Text scales for easier reading.</p>
         </div>
@@ -446,16 +444,18 @@
       </div>
     </section>
 
+    <div class="ending">
+
     <!-- 5.9 pricing -->
     <section class="pricing section" id="pricing">
       <div class="wrap">
-        <p class="eyebrow">Pricing</p>
-        <h2 style="font-size:clamp(1.9rem,4.5vw,2.8rem);max-width:18ch">One plan for the whole family.</h2>
-        <p class="lead" style="margin-top:1.1rem">Start free. When you need more room, one subscription covers everyone in the family.</p>
+        <p class="kicker">Pricing</p>
+        <h2>One plan for the whole family.</h2>
+        <p class="lead">Start free. When you need more room, one subscription covers everyone in the family.</p>
 
         <div class="price-grid">
           <div class="plan">
-            <h3>Free</h3>
+            <p class="plan-name">Free</p>
             <p class="plan-sub">Room to begin your tree and first memories.</p>
             <div class="price">$0</div>
             <ul>
@@ -467,7 +467,7 @@
           </div>
 
           <div class="plan featured">
-            <h3>Family plan</h3>
+            <p class="plan-name">Family plan</p>
             <p class="plan-sub">More storage and the vault, for everyone in the family.</p>
             <div class="price">$7.99 <span>/ month</span></div>
             <p class="price-alt">or $64.99 / year</p>
@@ -485,13 +485,19 @@
 
     <!-- 5.10 closing -->
     <section class="closing section">
-      <div class="wrap">
-        <h2>Start your family's Bough.</h2>
-        <p>Free to start. Invite the family when you are ready.</p>
-        <a class="btn btn-primary" href="https://apps.apple.com/app/id6780286740" target="_blank" rel="noopener">Get Bough</a>
-        <p class="hero-note" style="margin-top:1.25rem">Sign in with Apple, Google, or your email.</p>
+      <div class="wrap closing-inner">
+        <div>
+          <h2>Start your family's Bough.</h2>
+          <p>Free to start. Invite the family when you are ready.</p>
+        </div>
+        <div class="closing-cta">
+          <a class="btn btn-primary" href="https://apps.apple.com/app/id6780286740" target="_blank" rel="noopener">Get Bough</a>
+          <p class="hero-note">Sign in with Apple, Google, or your email.</p>
+        </div>
       </div>
     </section>
+
+    </div><!-- /.ending -->
 
   </main>
 
