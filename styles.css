@@ -4,6 +4,11 @@
   Fraunces + Karla type pairing (DESIGN.md §3). One light "paper" theme for
   everyone: paper is the single continuous page background, surface/surface-alt
   are reserved for real objects (pricing card, the ending field).
+
+  Layout: a real 12-column grid. The main container is 1120px; narrower
+  sections use a max-width container that sits LEFT within that 1120 zone.
+  Spacing is set per section (top/bottom padding); adjacent sections' paddings
+  add, so they stay small. No section min-heights, no page-wrapper row-gap.
 */
 
 /* ----------------------------------------------------------------- tokens */
@@ -40,18 +45,10 @@
 
   --maxw: 1120px;
   --readw: 44rem;
-  --gutter: clamp(1.25rem, 5vw, 3rem);
+  --gutter: 24px;          /* 12-col gutter + min outer gutter (desktop) */
   --radius-sm: 12px;
   --radius-md: 18px;
   --radius-lg: 24px;
-
-  /* relationship-based vertical gaps (gap BEFORE a section); ~40% smaller on mobile */
-  --gap-xs: clamp(1.5rem, 3.5vw, 2.5rem);    /* ~40px — within a movement */
-  --gap-sm: clamp(1.75rem, 4vw, 3rem);       /* ~48px */
-  --gap-md: clamp(2rem, 4.5vw, 3.5rem);      /* ~56px */
-  --gap-lg: clamp(2.75rem, 5.5vw, 4.5rem);   /* ~72px */
-  --gap-xl: clamp(3.5rem, 7vw, 6rem);        /* ~96px — a new topic */
-  --gap-xxl: clamp(3.75rem, 7.5vw, 6.5rem);  /* ~104px — a new movement */
 
   color-scheme: only light;
 }
@@ -72,7 +69,7 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 1.0625rem;      /* 17px — comfortable for a broad age range */
+  font-size: 17px;           /* comfortable for a broad age range */
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -102,45 +99,91 @@ h1, h2, h3 {
 
 p { margin: 0; }
 
+/* ------------------------------------------------- container + 12-col grid */
 .wrap {
   width: 100%;
   max-width: var(--maxw);
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
+/* narrower sections: capped width, left-aligned inside the 1120 zone */
+.narrow-920 { max-width: 920px; }
+.narrow-800 { max-width: 800px; }
 
-/* neutralize the old uniform rhythm; each section sets its own gap-before */
+.g12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 0;
+  align-items: start;          /* top-align columns; no dead center */
+}
+.s1  { grid-column: span 1; }
+.s3  { grid-column: span 3; }
+.s4  { grid-column: span 4; }
+.s5  { grid-column: span 5; }
+.s6  { grid-column: span 6; }
+.s7  { grid-column: span 7; }
+.s8  { grid-column: span 8; }
+.s11 { grid-column: span 11; }
+.s12 { grid-column: span 12; }
+
+@media (max-width: 1023px) {
+  .wrap { padding-inline: 20px; }
+  .g12 { grid-template-columns: 1fr; row-gap: 24px; }
+  .g12 > * { grid-column: auto; }
+}
+
 .section { padding-block: 0; }
 
-/* HERO eyebrow — the one pronounced small-caps label (DESIGN §3) */
+/* ------------------------------------------------- type levels (visual) */
+/* weight 600 comes from h1,h2,h3. Levels are the three visual sizes. */
+.t-l1 { font-size: 42px; line-height: 1.10; }
+.t-l2 { font-size: 32px; line-height: 1.18; }
+.t-l3 { font-size: 28px; line-height: 1.20; }
+@media (min-width: 1024px) {
+  .t-l1 { font-size: 56px; line-height: 1.08; }
+  .t-l2 { font-size: 44px; line-height: 1.14; }
+  .t-l3 { font-size: 34px; line-height: 1.18; }
+}
+@media (min-width: 1200px) {
+  .t-l1 { font-size: 64px; line-height: 1.08; }
+}
+
+/* eyebrows: 13px, 12px below */
 .eyebrow {
   font-family: var(--sans);
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 13px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--sage-deep);
-  margin: 0 0 1rem;
+  margin: 0 0 12px;
 }
-
-/* quiet section label used everywhere after the hero */
 .kicker {
   font-family: var(--sans);
   font-weight: 600;
-  font-size: 0.8125rem;      /* ~13px */
+  font-size: 13px;
   letter-spacing: 0.01em;
   color: var(--muted);
-  margin: 0 0 0.6rem;
+  margin: 0 0 12px;
 }
 
 .lead {
-  font-size: clamp(1.125rem, 2.4vw, 1.375rem);
-  line-height: 1.5;
+  font-size: 17px;
+  line-height: 1.6;
   color: var(--ink-caption);
-  max-width: 34rem;
 }
-
 .muted { color: var(--muted); }
+
+/* feature / step / thread / trust titles — Karla 18px */
+.f-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: var(--ink);
+}
 
 /* --------------------------------------------------------------- buttons */
 .btn {
@@ -190,13 +233,15 @@ p { margin: 0; }
   padding-top: env(safe-area-inset-top, 0px);
 }
 .site-header .wrap {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  min-height: 64px;
+  min-height: 48px;
+  padding-block: 12px;
 }
 .brand {
+  grid-column: span 4;
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
@@ -207,75 +252,92 @@ p { margin: 0; }
 .brand .wordmark {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: 1.5rem;
   letter-spacing: -0.01em;
 }
+.site-header .wordmark { font-size: 28px; }
 .nav {
+  grid-column: span 8;
+  justify-self: end;
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 2.5vw, 2rem);
+  gap: 24px;
 }
 .nav-links {
   display: flex;
-  gap: clamp(1rem, 2.5vw, 1.75rem);
+  gap: 24px;
 }
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 16px;
 }
 .nav-links a:hover { color: var(--ink); }
+/* header CTA: compact, no glow */
+.site-header .btn-primary { box-shadow: none; }
+.site-header .btn {
+  min-height: 48px;
+  padding: 0 1.2rem;
+  font-size: 16px;
+}
+@media (max-width: 1023px) {
+  .site-header .wrap { min-height: 40px; }
+  .site-header .wordmark { font-size: 26px; }
+  .site-header .btn { min-height: 40px; }
+}
 @media (max-width: 720px) {
   .nav-links { display: none; }
 }
 
 /* --------------------------------------------------------------- hero */
-.hero { padding-top: clamp(2.5rem, 6vw, 4.5rem); padding-bottom: 0; }
-.hero h1 {
-  font-size: clamp(2.5rem, 6vw, 4.75rem);
-  line-height: 1.08;
-  max-width: 16ch;
+.hero { padding: 48px 0 24px; }
+.hero-inner { align-items: start; }
+.hero-copy { grid-column: span 6; }
+.hero h1 { max-width: 16ch; }
+.hero .lead {
+  margin-top: 24px;
+  max-width: 42ch;
+  font-size: 17px;
+  line-height: 1.6;
 }
-.hero .lead { margin-top: 1.5rem; }
 .hero-actions {
-  margin-top: 2.25rem;
+  margin-top: 24px;
   display: flex;
   flex-wrap: wrap;
   gap: 0.85rem;
   align-items: center;
 }
 .hero-note {
-  margin-top: 1.1rem;
+  margin-top: 12px;
   font-size: 0.95rem;
   color: var(--muted);
-}
-
-/* hero — editorial: narrow copy column beside a wider living tree */
-.hero-inner {
-  display: grid;
-  gap: clamp(2rem, 5vw, 3.75rem);
-  align-items: center;
-}
-@media (min-width: 940px) {
-  .hero-inner { grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); }
 }
 
 /* the hand-drawn family tree sits directly on the paper (no card) */
 .tree-stage {
-  margin-top: clamp(2rem, 5vw, 3rem);
+  grid-column: span 6;
+  margin-top: 56px;          /* its top sits 56px below the hero grid top */
+  margin-left: -8px;
+  max-width: 540px;
+  width: 100%;
   overflow: visible;
-}
-@media (min-width: 940px) {
-  .hero-inner .tree-stage { margin-top: 0; }
 }
 .tree-stage svg { width: 100%; height: auto; display: block; }
 .tree-caption {
-  margin: 1.25rem auto 0;
-  text-align: center;
-  max-width: 40rem;
+  margin: 12px 0 0;
+  max-width: 42ch;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@media (min-width: 1024px) {
+  .hero .lead { font-size: 19px; line-height: 1.5; }
+}
+@media (max-width: 1023px) {
+  .hero { padding: 28px 0 16px; }
+  .hero-inner { row-gap: 28px; }
+  .tree-stage { margin: 0; max-width: 420px; }
 }
 
 /* hero tree is static (the reveal tree is the single drawing moment) */
@@ -287,192 +349,282 @@ p { margin: 0; }
 }
 .person { transform-box: fill-box; transform-origin: center; }
 
-/* --------------------------------------------------------------- statement */
-.statement .big {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: clamp(1.8rem, 4vw, 2.7rem);
-  line-height: 1.18;
-  letter-spacing: -0.01em;
-  max-width: 24ch;
+/* --------------------------------------- 5.2 day to day (.everyday) */
+.everyday { padding: 40px 0 24px; }
+.everyday-grid { align-items: start; }
+.everyday .section-head { grid-column: span 5; }
+.everyday .section-head h2 { max-width: 19ch; }
+.everyday .section-head .lead { margin-top: 20px; max-width: 40ch; }
+.vignettes {
+  grid-column: span 7;
+  display: flex;
+  flex-direction: column;
 }
-.statement .big em {
-  font-style: italic;
-  color: var(--terracotta);
-}
-.threads {
-  margin-top: clamp(2rem, 4.5vw, 3rem);
+.vignette {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.25rem, 3vw, 2.25rem);
+  grid-template-columns: 32px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 20px 0;
+  border-top: 1px solid var(--hairline);   /* dividers organize the list */
 }
+.vignette:first-child { padding-top: 0; border-top: none; }
+.vignette:last-child { padding-bottom: 0; }
+.vignette .v-ico { width: 28px; height: 28px; color: var(--sage-deep); flex: none; }
+.vignette h3 { margin: 0 0 6px; }
+.vignette p { color: var(--ink-caption); font-size: 17px; max-width: 52ch; }
+@media (max-width: 1023px) {
+  .everyday { padding: 24px 0 16px; }
+}
+
+/* --------------------------------------- 5.3 together (split) */
+#together { padding: 32px 0 24px; }
+.split { align-items: start; }
+.split-copy { grid-column: span 4; }
+.split-copy h2 { max-width: 18ch; }
+.split-copy p { color: var(--ink-caption); margin-top: 20px; max-width: 36ch; }
+.split-visual { grid-column: span 8; overflow: visible; }
+.split-visual svg { width: 100%; max-width: 640px; height: auto; display: block; }
+@media (max-width: 1023px) {
+  #together { padding: 20px 0 16px; }
+  .split-visual svg { max-width: 420px; }
+}
+
+/* --------------------------------------- 5.4 the tree centerpiece */
+.tree-feature { padding: 56px 0 24px; }
+.tree-intro { align-items: start; }
+.tree-intro .kicker + h2 { margin-top: 0; }
+.tree-intro h2 { max-width: 19ch; }
+.tree-intro .lead { max-width: 52ch; }
+.tree-reveal {
+  margin: 28px auto 0;
+  max-width: 960px;
+  overflow: visible;
+}
+.tree-reveal svg { width: 100%; height: auto; display: block; }
+.rbranch { fill: none; stroke: var(--line); stroke-width: 2.4; stroke-linecap: round; }
+.rperson { transform-box: fill-box; transform-origin: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .tree-reveal.armed .rbranch { stroke-dasharray: var(--len, 300); stroke-dashoffset: var(--len, 300); }
+  .tree-reveal.armed .rperson { opacity: 0; }
+  .tree-reveal.armed.in-view .rbranch { animation: grow 1.1s ease forwards; animation-delay: var(--d, 0s); }
+  .tree-reveal.armed.in-view .rperson { animation: settle 0.6s ease forwards; animation-delay: var(--pd, 0.6s); }
+  @keyframes grow { to { stroke-dashoffset: 0; } }
+  @keyframes settle {
+    from { opacity: 0; transform: scale(0.82); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
+/* reduced motion / no-JS: branches and people are fully drawn at rest */
+.rbranch { stroke-dashoffset: 0; }
+.rperson { opacity: 1; }
+@media (max-width: 1023px) {
+  .tree-feature { padding: 32px 0 16px; }
+  .tree-intro { row-gap: 16px; }
+  .tree-reveal { margin-top: 24px; max-width: 560px; }
+}
+
+/* --------------------------------------- 5.5 what it holds (.statement) */
+.statement { padding: 24px 0; }
+.threads { margin-top: 24px; }
+.thread { grid-column: span 4; }
 .thread .tag {
   font-family: var(--sans);
   font-weight: 600;
-  font-size: 0.8125rem;
+  font-size: 13px;
   letter-spacing: 0.01em;
   color: var(--muted);
   display: block;
-  margin-bottom: 0.55rem;
+  margin: 0 0 8px;
 }
-.thread h3 {
-  font-family: var(--sans);
-  font-weight: 700;
-  font-size: 1.1875rem;
-  line-height: 1.3;
-  letter-spacing: 0;
-  margin-bottom: 0.4rem;
-}
-.thread p { color: var(--ink-caption); font-size: 1rem; }
-@media (max-width: 720px) {
-  .threads { grid-template-columns: 1fr; gap: 1.75rem; }
+.thread h3 { margin: 0 0 8px; }
+.thread p { color: var(--ink-caption); font-size: 17px; max-width: 30ch; }
+@media (max-width: 1023px) {
+  .statement { padding: 16px 0; }
 }
 
-/* --------------------------------------------------------------- how it works */
-.howto-inner {
-  display: grid;
-  gap: clamp(1.75rem, 4vw, 3rem);
-  align-items: start;
-}
-@media (min-width: 820px) {
-  .howto-inner { grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr); gap: 1.5rem; }
-}
+/* --------------------------------------- 5.6 how it works */
+#how { padding: 40px 0 24px; }
+.howto-head h2 { max-width: 26ch; }
 .steps {
+  margin-top: 24px;
   list-style: none;
-  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: clamp(1.1rem, 2.5vw, 1.6rem);
+  gap: 20px;
 }
 .step-item {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 11fr);
+  column-gap: var(--gutter);
   align-items: baseline;
 }
 .step-n {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: 1.35rem;
+  font-size: 22px;
   color: var(--sage-deep);
-  line-height: 1;
+  line-height: 1.1;
   font-variant-numeric: tabular-nums;
-  min-width: 1.4ch;
 }
-.step-item h3 {
-  font-family: var(--sans);
-  font-weight: 700;
-  font-size: 1.1875rem;
-  line-height: 1.3;
-  letter-spacing: 0;
-  margin-bottom: 0.25rem;
+.step-item h3 { margin: 0 0 6px; }
+.step-item p { color: var(--ink-caption); font-size: 17px; max-width: 56ch; }
+@media (max-width: 1023px) {
+  #how { padding: 24px 0 16px; }
+  .step-item { grid-template-columns: 24px 1fr; column-gap: 12px; }
 }
-.step-item p { color: var(--ink-caption); font-size: 1rem; }
 
-/* --------------------------------------------------------------- pricing */
-.price-grid {
-  margin-top: clamp(2rem, 5vw, 3rem);
-  display: grid;
-  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
-  gap: clamp(1.5rem, 3.5vw, 2.75rem);
-  align-items: start;
+/* --------------------------------------- 5.7 privacy + trust */
+.trust { padding: 32px 0 16px; }
+.trust-head { grid-column: span 4; }
+.trust-head h2 { max-width: 20ch; }
+.trust-policy { margin-top: 20px; }
+.trust-policy a.inline-link { color: var(--sage-press); font-weight: 600; }
+.trust-policy a.inline-link:hover { color: var(--terracotta); }
+.trust-list {
+  grid-column: span 8;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
-.plan { display: flex; flex-direction: column; }
-/* Free — an unfilled column on the ending field */
-.plan .plan-name { font-family: var(--serif); font-weight: 600; font-size: 1.45rem; margin-bottom: 0.25rem; }
-.plan .plan-sub { color: var(--muted); font-size: 0.98rem; margin-bottom: 1.4rem; }
+.trust-line { display: grid; grid-template-columns: 24px 1fr; gap: 12px; align-items: start; }
+.trust-line svg { width: 20px; height: 20px; color: var(--sage-deep); flex: none; margin-top: 2px; }
+.trust-line h3 { margin: 0 0 6px; }
+.trust-line p { color: var(--ink-caption); font-size: 17px; max-width: 48ch; }
+@media (max-width: 1023px) {
+  .trust { padding: 20px 0 12px; }
+}
+
+/* --------------------------------------- 5.8 for every age */
+.anyone { padding: 24px 0; }
+.anyone-inner { align-items: start; }
+.anyone-copy { grid-column: span 8; }
+.anyone-copy h2 { max-width: 25ch; }
+.anyone-body { color: var(--ink-caption); margin-top: 16px; max-width: 44ch; font-size: 17px; }
+.anyone-visual { grid-column: span 4; margin-top: 8px; }
+.anyone-visual svg { width: 100%; max-width: 220px; height: auto; display: block; }
+@media (max-width: 1023px) {
+  .anyone { padding: 16px 0; }
+  .anyone-inner { row-gap: 20px; }
+  .anyone-visual { margin-top: 0; }
+  .anyone-visual svg { max-width: 180px; }
+}
+
+/* --------------------------------------------------------------- the ending field */
+.ending { background: var(--surface-alt); }
+
+/* --------------------------------------- 5.9 pricing */
+.pricing { padding: 56px 0 24px; }
+.pricing h2 { max-width: 18ch; }
+.pricing .price-intro .lead { margin-top: 12px; max-width: 48ch; }
+.price-grid { margin-top: 28px; align-items: start; }
+.plan { display: flex; flex-direction: column; align-items: flex-start; }
+.plan.free { grid-column: span 5; padding: 32px 0 0; }
+.plan.featured {
+  grid-column: span 7;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: var(--shadow-card);
+}
+.plan .plan-name { font-family: var(--serif); font-weight: 600; font-size: 1.35rem; margin: 0; }
 .plan .price {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: clamp(2.2rem, 5vw, 2.9rem);
+  font-size: 52px;
+  line-height: 1.1;
   color: var(--ink);
-  line-height: 1;
+  margin-top: 12px;
 }
 .plan .price span { font-family: var(--sans); font-size: 1rem; font-weight: 500; color: var(--muted); }
-.plan .price-alt { color: var(--muted); font-size: 0.98rem; margin-top: 0.5rem; }
+.plan .price-alt { color: var(--muted); font-size: 0.98rem; margin-top: 6px; }
+.plan .plan-sub { color: var(--muted); font-size: 17px; margin-top: 20px; }
+.plan.free .plan-sub { max-width: 32ch; }
+.plan.featured .plan-sub { max-width: 40ch; }
 .plan ul {
   list-style: none;
-  margin: 1.6rem 0 0;
+  margin: 20px 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 12px;
+  align-self: stretch;
 }
 .plan li {
   display: flex;
   gap: 0.65rem;
   align-items: flex-start;
-  font-size: 1rem;
+  font-size: 17px;
   color: var(--ink-caption);
 }
 .plan li svg { flex: none; width: 22px; height: 22px; color: var(--sage-deep); margin-top: 1px; }
-.plan .btn { margin-top: 1.8rem; align-self: flex-start; }
-/* Family — the featured object: a surface card lifted off the ending field */
-.plan.featured {
-  background: var(--surface);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.75rem, 3.5vw, 2.75rem);
-  box-shadow: var(--shadow-card);
-}
-@media (max-width: 780px) {
-  .price-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+.plan .btn { margin-top: 24px; align-self: flex-start; }
+@media (max-width: 1023px) {
+  .pricing { padding: 32px 0 16px; }
+  .price-grid { row-gap: 28px; }
+  .plan .price { font-size: 40px; }
+  .plan.free { padding-top: 0; }
+  .plan.featured { padding: 24px; border-radius: 16px; }
 }
 
-/* --------------------------------------------------------------- the ending field */
-.ending {
-  background: var(--surface-alt);
-  padding-top: var(--gap-xl);      /* For every age -> Pricing: a real pause into the tonal shift */
+/* --------------------------------------- 5.10 closing */
+.closing { padding: 16px 0 32px; }
+.closing-inner { align-items: start; }
+.closing-text { grid-column: span 8; }
+.closing h2 { max-width: 28ch; }
+.closing-support { color: var(--ink-caption); margin-top: 12px; max-width: 52ch; font-size: 17px; }
+.closing-signin { margin-top: 12px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.closing-cta { grid-column: span 4; }
+.closing-cta .btn { margin-top: 4px; }
+@media (max-width: 1023px) {
+  .closing { padding: 12px 0 20px; }
+  .closing-inner { row-gap: 20px; }
+  .closing-cta .btn { margin-top: 0; }
 }
 
 /* --------------------------------------------------------------- footer */
 .site-footer {
   background: var(--surface-alt);
-  padding-top: clamp(2.75rem, 5vw, 3.75rem);
-  padding-bottom: calc(clamp(2.5rem, 5vw, 3.5rem) + env(safe-area-inset-bottom, 0px));
+  padding: 16px 0 calc(24px + env(safe-area-inset-bottom, 0px));
 }
-.footer-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem 3rem;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.footer-brand { max-width: 26rem; }
-.footer-brand p { color: var(--muted); font-size: 0.98rem; margin-top: 0.9rem; }
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem 3rem;
-}
+.footer-grid { align-items: start; }
+.footer-brand { grid-column: span 6; }
+.footer-brand .wordmark { font-size: 26px; }
+.footer-brand p { color: var(--muted); font-size: 15px; line-height: 1.6; margin-top: 12px; max-width: 34ch; }
+.footer-col { grid-column: span 3; }
 .footer-col h4 {
   font-family: var(--sans);
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
-  margin: 0 0 0.9rem;
+  margin: 0 0 12px;
 }
 .footer-col a {
   display: block;
   color: var(--ink-caption);
   text-decoration: none;
-  font-size: 1rem;
-  margin-bottom: 0.55rem;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 8px;
 }
 .footer-col a:hover { color: var(--terracotta); }
 .footer-legal {
-  margin-top: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--hairline);   /* kept: it organizes the legal line */
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline);   /* organizes the legal line */
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 13px;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem 1.5rem;
   justify-content: space-between;
+}
+@media (max-width: 1023px) {
+  .site-footer { padding: 12px 0 calc(16px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* --------------------------------------- life moments on the hero tree */
@@ -493,167 +645,9 @@ p { margin: 0; }
   }
 }
 
-/* --------------------------------------- section headings */
-.section-head { max-width: 46rem; }
-.section-head h2 {           /* supporting role by default */
-  font-size: clamp(1.6rem, 3.2vw, 2.25rem);
-  line-height: 1.2;
-  max-width: 20ch;
-}
+/* --------------------------------------- section headings (shared) */
+.section-head h2 { line-height: 1.14; }
 .section-head .lead { margin-top: 1.1rem; }
-/* major role — the two headings that carry a movement */
-.everyday .section-head h2,
-.tree-feature .section-head h2 {
-  font-size: clamp(2rem, 4.5vw, 3.1rem);
-  line-height: 1.14;
-  max-width: 16ch;
-}
-
-/* --------------------------------------- 5.2 the everyday, together */
-.everyday-grid {
-  margin-top: clamp(2rem, 4.5vw, 3rem);
-  display: grid;
-  gap: clamp(2rem, 5vw, 3.5rem);
-  align-items: start;
-}
-@media (min-width: 880px) {
-  .everyday-grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
-}
-.vignettes { display: flex; flex-direction: column; gap: 0; }
-.vignette {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1.1rem;
-  align-items: start;
-  padding: 1.4rem 0;
-  border-top: 1px solid var(--hairline);   /* kept: organizes the vignette strip */
-}
-.vignette:last-child { border-bottom: 1px solid var(--hairline); }
-.vignette .v-ico {
-  width: 40px; height: 40px;
-  color: var(--sage-deep);
-  flex: none;
-}
-.vignette h3 {
-  font-family: var(--sans);
-  font-weight: 700;
-  font-size: 1.1875rem;
-  line-height: 1.3;
-  letter-spacing: 0;
-  margin-bottom: 0.25rem;
-}
-.vignette p { color: var(--ink-caption); font-size: 1rem; }
-.vignette .v-who { color: var(--terracotta); font-style: italic; }
-
-/* --------------------------------------- 5.3 made together (split) */
-.split {
-  display: grid;
-  gap: clamp(2rem, 5vw, 3.5rem);
-  align-items: center;
-}
-@media (min-width: 880px) {
-  .split { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
-}
-.split-visual { overflow: visible; }
-.split-visual svg { width: 100%; height: auto; display: block; }
-.split-copy h2 {
-  font-size: clamp(1.9rem, 4vw, 2.8rem);
-  line-height: 1.15;
-  max-width: 16ch;
-}
-.split-copy p { color: var(--ink-caption); margin-top: 1.1rem; max-width: 40ch; }
-
-/* --------------------------------------- 5.4 the tree centerpiece */
-.tree-reveal {
-  margin-top: clamp(1.75rem, 4vw, 2.75rem);
-  overflow: visible;
-}
-.tree-reveal svg { width: 100%; height: auto; display: block; }
-.rbranch { fill: none; stroke: var(--line); stroke-width: 2.4; stroke-linecap: round; }
-.rperson { transform-box: fill-box; transform-origin: center; }
-@media (prefers-reduced-motion: no-preference) {
-  .tree-reveal.armed .rbranch { stroke-dasharray: var(--len, 300); stroke-dashoffset: var(--len, 300); }
-  .tree-reveal.armed .rperson { opacity: 0; }
-  .tree-reveal.armed.in-view .rbranch { animation: grow 1.1s ease forwards; animation-delay: var(--d, 0s); }
-  .tree-reveal.armed.in-view .rperson { animation: settle 0.6s ease forwards; animation-delay: var(--pd, 0.6s); }
-  @keyframes grow { to { stroke-dashoffset: 0; } }
-  @keyframes settle {
-    from { opacity: 0; transform: scale(0.82); }
-    to { opacity: 1; transform: scale(1); }
-  }
-}
-/* reduced motion / no-JS: branches and people are fully drawn at rest */
-.rbranch { stroke-dashoffset: 0; }
-.rperson { opacity: 1; }
-
-/* --------------------------------------- 5.7 privacy + trust (on paper) */
-.trust h2 {
-  font-size: clamp(1.6rem, 3.2vw, 2.25rem);
-  line-height: 1.2;
-  max-width: 18ch;
-}
-.trust-grid {
-  margin-top: clamp(1.75rem, 4vw, 2.5rem);
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: clamp(1.5rem, 3vw, 2rem) clamp(1.75rem, 4vw, 2.75rem);
-}
-@media (max-width: 640px) { .trust-grid { grid-template-columns: 1fr; } }
-.trust-line { display: grid; grid-template-columns: auto 1fr; gap: 0.9rem; align-items: start; }
-.trust-line svg { width: 22px; height: 22px; color: var(--sage-deep); flex: none; margin-top: 2px; }
-.trust-line h3 {
-  font-family: var(--sans);
-  font-weight: 700;
-  font-size: 1.0625rem;
-  line-height: 1.3;
-  letter-spacing: 0;
-  margin-bottom: 0.2rem;
-}
-.trust-line p { color: var(--ink-caption); font-size: 0.98rem; }
-.trust a.inline-link { color: var(--sage-press); font-weight: 600; }
-.trust a.inline-link:hover { color: var(--terracotta); }
-
-/* --------------------------------------- 5.8 for every age */
-.anyone-inner {
-  display: grid;
-  gap: clamp(1.75rem, 5vw, 3rem);
-  align-items: center;
-}
-@media (min-width: 820px) { .anyone-inner { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); } }
-.anyone h2 {
-  font-size: clamp(1.6rem, 3.2vw, 2.25rem);
-  line-height: 1.2;
-  max-width: 18ch;
-}
-.anyone p { color: var(--ink-caption); margin-top: 1.1rem; max-width: 42ch; }
-.anyone-visual { display: grid; place-items: center; }
-.anyone-visual svg { width: 100%; max-width: 220px; height: auto; }
-
-/* --------------------------------------- 5.9 pricing heading */
-.pricing h2 {
-  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
-  line-height: 1.18;
-  max-width: 18ch;
-}
-.pricing .lead { margin-top: 1.1rem; }
-
-/* --------------------------------------- 5.10 closing */
-.closing-inner {
-  display: grid;
-  gap: clamp(1.5rem, 4vw, 3rem);
-  align-items: center;
-}
-@media (min-width: 780px) {
-  .closing-inner { grid-template-columns: minmax(0, 1fr) auto; }
-}
-.closing h2 {
-  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
-  line-height: 1.18;
-  max-width: 18ch;
-}
-.closing p { color: var(--ink-caption); margin-top: 0.9rem; }
-.closing-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 0.9rem; }
-@media (min-width: 780px) { .closing-cta { align-items: flex-end; text-align: right; } }
 
 /* --------------------------------------- counsel-review block (legal docs) */
 .counsel-note {
@@ -765,13 +759,3 @@ p { margin: 0; }
   z-index: 50;
 }
 .skip-link:focus { left: 0; color: var(--on-accent); }
-
-/* --------------------------------------- section gaps (relationship-based) */
-.everyday { padding-top: var(--gap-lg); }       /* hero -> day to day */
-#together  { padding-top: var(--gap-md); }        /* day to day -> together */
-.tree-feature { padding-top: var(--gap-xxl); }    /* together -> the tree (new movement) */
-.statement { padding-top: var(--gap-xs); }        /* the tree -> what it holds */
-#how { padding-top: var(--gap-lg); }              /* what it holds -> how it works */
-.trust { padding-top: var(--gap-xl); }            /* how it works -> privacy */
-.anyone { padding-top: var(--gap-xs); }           /* privacy -> for every age */
-.closing { padding-top: var(--gap-sm); }          /* pricing -> closing */
