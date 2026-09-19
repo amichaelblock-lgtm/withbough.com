@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Bough celebrations — a surprise built together</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:      #F7F1E3;
+    --paper-2:    #F1E8D4;
+    --board:      #efe6d2;
+    --ink:        #3B2E24;
+    --ink-soft:   #6C5A49;
+    --sage:       #7C9469;
+    --sage-deep:  #5E7A52;
+    --amber:      #E4A64F;
+    --terra:      #C96A44;
+    --rose:       #d68a8a;
+
+    --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-brand: "Fraunces", Georgia, "Times New Roman", serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; min-height: 100%;
+    font-family: var(--font-ui);
+    background: radial-gradient(120% 90% at 50% -10%, #efe7d8 0%, #e4dccd 46%, #d8cfbe 100%);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .stage {
+    min-height: 100dvh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 26px 16px; gap: 20px;
+  }
+
+  /* board title / status */
+  .titlebar {
+    display: flex; align-items: center; gap: 10px;
+    min-height: 34px;
+  }
+  .titlebar .leaf { width: 20px; height: 20px; flex: none; }
+  .title {
+    font-family: var(--font-brand); font-weight: 600; font-size: 22px; color: var(--ink);
+    line-height: 1.05; text-align: center;
+    transition: opacity 420ms ease, transform 520ms cubic-bezier(.22,.9,.28,1);
+  }
+  .lockpill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 11px; border-radius: 999px;
+    background: rgba(107,90,73,0.1); color: var(--ink-soft);
+    font-size: 11.5px; font-weight: 600;
+    transition: opacity 380ms ease;
+  }
+  .lockpill svg { width: 12px; height: 12px; }
+  .step-out { opacity: 0; transform: translateY(-5px); }
+
+  /* the board */
+  .board {
+    position: relative;
+    width: min(400px, 92vw);
+    aspect-ratio: 400 / 300;
+    border-radius: 18px;
+    background:
+      linear-gradient(168deg, #f3ecdb 0%, var(--board) 100%);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset,
+                0 0 0 6px rgba(255,255,255,0.5) inset,
+                0 26px 46px -22px rgba(59,46,36,0.5),
+                0 8px 18px -12px rgba(59,46,36,0.3);
+    overflow: hidden;
+  }
+  .board::after {
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background: radial-gradient(70% 50% at 20% 0%, rgba(255,255,255,0.4), transparent 60%);
+  }
+
+  /* contributor cards */
+  .card {
+    position: absolute;
+    width: 27%;
+    background: #fffdf7;
+    border-radius: 8px;
+    padding: 5px 5px 6px;
+    box-shadow: 0 10px 18px -9px rgba(59,46,36,0.45);
+    opacity: 0;
+    transform: translateY(26px) scale(0.9) rotate(var(--rot,0deg));
+    transition: opacity 420ms ease, transform 620ms cubic-bezier(.28,1.3,.5,1);
+  }
+  .card.in { opacity: 1; transform: translateY(0) scale(1) rotate(var(--rot,0deg)); }
+  .card .pic { position: relative; border-radius: 5px; overflow: hidden; aspect-ratio: 1/0.78; background: var(--paper-2); }
+  .card .pic svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .card .pin {
+    position: absolute; top: -6px; left: 50%; margin-left: -5px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #e88, var(--terra));
+    box-shadow: 0 2px 3px rgba(59,46,36,0.4);
+  }
+  .card .from {
+    display: block; margin-top: 4px;
+    font-size: 8.5px; font-weight: 700; color: var(--sage-deep);
+    letter-spacing: 0.2px; text-align: center;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* honoree reveal */
+  .honoree {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%,-50%) scale(0.6);
+    opacity: 0;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    z-index: 20;
+    transition: opacity 500ms ease, transform 640ms cubic-bezier(.28,1.3,.5,1);
+    pointer-events: none;
+  }
+  .revealed .honoree { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  .honoree .ava {
+    width: 76px; height: 76px; border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--font-brand); font-weight: 600; font-size: 34px; color: #fff;
+    background: linear-gradient(150deg, var(--amber), var(--terra));
+    box-shadow: 0 12px 24px -8px rgba(59,46,36,0.5), 0 0 0 5px rgba(255,255,255,0.7);
+  }
+  .honoree .msg {
+    font-family: var(--font-brand); font-weight: 600; font-size: 17px; color: var(--ink);
+    background: rgba(255,253,247,0.9); padding: 5px 14px; border-radius: 999px;
+    box-shadow: 0 6px 14px -8px rgba(59,46,36,0.4);
+  }
+
+  /* dim cards behind honoree on reveal so the face reads */
+  .revealed .card { opacity: 0.5; transform: translateY(0) scale(0.94) rotate(var(--rot,0deg)); }
+
+  /* confetti layer */
+  .confetti { position: absolute; inset: 0; overflow: hidden; z-index: 15; pointer-events: none; }
+  .confetti i {
+    position: absolute; top: -12%; width: 8px; height: 12px; border-radius: 2px;
+    opacity: 0;
+  }
+  .burst i { animation: fall 1900ms cubic-bezier(.35,.2,.4,1) forwards; }
+  @keyframes fall {
+    0%   { opacity: 0; transform: translateY(-10px) rotate(0deg); }
+    12%  { opacity: 1; }
+    100% { opacity: 0; transform: translateY(320px) rotate(540deg); }
+  }
+
+  .caption { text-align:center; max-width: 440px; font-size: 14px; color: var(--ink-soft); line-height: 1.45; }
+  .caption .k { font-family: var(--font-brand); color: var(--ink); font-weight: 600; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card, .honoree, .title, .lockpill { transition: none !important; }
+    .confetti i { animation: none !important; }
+    .card.in { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <div class="titlebar">
+      <span class="leaf" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path d="M12 22c0-7 2-12 9-16-1 8-4 12-9 12" fill="#7c9469"/>
+          <path d="M12 22c0-7-2-12-9-16 1 8 4 12 9 12" fill="#5e7a52"/>
+          <rect x="11.2" y="10" width="1.6" height="12" rx="0.8" fill="#5e7a52"/>
+        </svg>
+      </span>
+      <span class="title" id="title">A surprise for Grandpa</span>
+    </div>
+    <div class="lockpill" id="lock">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" fill="#6C5A49"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#6C5A49" stroke-width="2"/></svg>
+      Hidden from Grandpa until his birthday
+    </div>
+
+    <div class="board revealed" id="board" role="img" aria-label="A celebration board fills with cards from several family members, each credited to the giver, then reveals to the guest of honor with confetti.">
+      <div class="confetti" id="confetti"></div>
+      <div class="honoree" id="honoree">
+        <span class="ava">G</span>
+        <span class="msg">Happy 70th, Grandpa</span>
+      </div>
+      <!-- cards injected -->
+    </div>
+
+    <p class="caption">Everyone but the guest of honor adds a card, each credited to the giver. On the day, the whole board <span class="k">reveals</span> to them.</p>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* tiny scenes for the cards */
+  function s(inner){ return '<svg viewBox="0 0 100 78" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'+inner+'</svg>'; }
+  var scenes = [
+    s('<rect width="100" height="78" fill="#f3ead6"/><circle cx="70" cy="24" r="12" fill="#e9b25f"/><path d="M0 50 Q30 42 55 48 T100 46 V78 H0 Z" fill="#8fb0a4"/><path d="M0 64 Q34 58 60 63 T100 62 V78 H0 Z" fill="#e0c496"/>'),
+    s('<rect width="100" height="78" fill="#eef0e0"/><path d="M0 46 Q50 36 100 46 V78 H0 Z" fill="#7c9469"/><circle cx="30" cy="44" r="5" fill="#e4a64f"/><circle cx="62" cy="40" r="5" fill="#efd0dd"/>'),
+    s('<rect width="100" height="78" fill="#f6ead0"/><rect x="0" y="52" width="100" height="26" fill="#d8bd93"/><ellipse cx="50" cy="52" rx="26" ry="9" fill="#f4ecdc"/><ellipse cx="50" cy="49" rx="14" ry="5" fill="#e4a64f"/>'),
+    s('<rect width="100" height="78" fill="#f2ead6"/><rect x="0" y="56" width="100" height="22" fill="#cdb896"/><path d="M40 56 V32 a12 12 0 0 1 24 0 V56 Z" fill="#c96a44"/><path d="M46 56 V34 a6 6 0 0 1 12 0 V56 Z" fill="#e4a64f"/>'),
+    s('<rect width="100" height="78" fill="#eaf0dd"/><circle cx="50" cy="34" r="16" fill="#f0d59a"/><path d="M0 56 Q50 48 100 56 V78 H0 Z" fill="#8aa06d"/><circle cx="50" cy="34" r="7" fill="#e4a64f"/>')
+  ];
+
+  // card layout: pos (left/top %) + rotation + contributor
+  var layout = [
+    { l: 7,  t: 10, rot: -6, from: "Mom",   sc: 0 },
+    { l: 68, t: 8,  rot: 5,  from: "Lily",  sc: 1 },
+    { l: 38, t: 20, rot: -2, from: "Theo",  sc: 4 },
+    { l: 10, t: 52, rot: 4,  from: "Sam",   sc: 3 },
+    { l: 66, t: 54, rot: -5, from: "Nora",  sc: 2 }
+  ];
+
+  var board = document.getElementById("board");
+  var cards = [];
+  layout.forEach(function (o) {
+    var c = document.createElement("div");
+    c.className = "card";
+    c.style.left = o.l + "%";
+    c.style.top = o.t + "%";
+    c.style.setProperty("--rot", o.rot + "deg");
+    c.innerHTML = '<span class="pin"></span><div class="pic">' + scenes[o.sc] + '</div><span class="from">from ' + o.from + '</span>';
+    board.appendChild(c);
+    cards.push(c);
+  });
+
+  /* confetti pieces */
+  var confetti = document.getElementById("confetti");
+  var colors = ["#E4A64F","#C96A44","#7C9469","#d68a8a","#e9c46a","#8fb0a4"];
+  var pieces = [];
+  for (var i = 0; i < 34; i++) {
+    var p = document.createElement("i");
+    p.style.left = (Math.random() * 100) + "%";
+    p.style.background = colors[i % colors.length];
+    p.style.animationDelay = (Math.random() * 350) + "ms";
+    p.style.width = (6 + Math.random() * 5) + "px";
+    p.style.height = (9 + Math.random() * 6) + "px";
+    if (Math.random() > 0.5) p.style.borderRadius = "50%";
+    confetti.appendChild(p);
+    pieces.push(p);
+  }
+
+  var title = document.getElementById("title");
+  var lock = document.getElementById("lock");
+  var honoree = document.getElementById("honoree");
+
+  if (reduce) return; // authored revealed frame stands as the static image
+
+  function swapTitle(text) {
+    title.classList.add("step-out");
+    setTimeout(function () { title.textContent = text; title.classList.remove("step-out"); }, 360);
+  }
+
+  function run() {
+    // reset to the building state
+    board.classList.remove("revealed");
+    confetti.classList.remove("burst");
+    cards.forEach(function (c) { c.classList.remove("in"); });
+    swapTitle("A surprise for Grandpa");
+    lock.style.opacity = "";
+
+    // cards arrive one at a time, credited to each giver
+    cards.forEach(function (c, k) {
+      setTimeout(function () { c.classList.add("in"); }, 700 + k * 620);
+    });
+
+    // reveal: hide the lock, confetti, honoree, new title
+    var revealAt = 700 + cards.length * 620 + 700;
+    setTimeout(function () { lock.style.opacity = "0"; }, revealAt - 250);
+    setTimeout(function () {
+      board.classList.add("revealed");
+      confetti.classList.remove("burst"); void confetti.offsetWidth; confetti.classList.add("burst");
+      swapTitle("Happy 70th, Grandpa");
+    }, revealAt);
+
+    // second confetti puff
+    setTimeout(function () {
+      confetti.classList.remove("burst"); void confetti.offsetWidth; confetti.classList.add("burst");
+    }, revealAt + 1400);
+
+    // loop
+    setTimeout(run, revealAt + 4200);
+  }
+
+  // begin from the building state
+  board.classList.remove("revealed");
+  cards.forEach(function (c) { c.classList.remove("in"); });
+  setTimeout(run, 500);
+})();
+</script>
+</body>
+</html>

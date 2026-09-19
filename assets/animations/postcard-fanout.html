@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Bough postcards — one send, everyone's home screen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:      #F7F1E3;
+    --paper-2:    #F1E8D4;
+    --ink:        #3B2E24;
+    --ink-soft:   #6C5A49;
+    --sage:       #7C9469;
+    --sage-deep:  #5E7A52;
+    --amber:      #E4A64F;
+    --terra:      #C96A44;
+
+    --wall-top:   #cdd6dd;
+    --wall-bot:   #e7dccd;
+    --chrome-ink: #23262b;
+    --dock-glass: rgba(255,255,255,0.30);
+
+    --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-brand: "Fraunces", Georgia, "Times New Roman", serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    font-family: var(--font-ui);
+    background: radial-gradient(120% 90% at 50% -10%, #efe7d8 0%, #e4dccd 46%, #d8cfbe 100%);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .stage {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 26px 16px;
+    gap: 22px;
+  }
+
+  /* ---- sender chip: the single origin of the postcard ---- */
+  .sender-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px 9px 9px;
+    background: linear-gradient(168deg, var(--paper) 0%, var(--paper-2) 100%);
+    border-radius: 999px;
+    box-shadow: 0 10px 22px -14px rgba(59,46,36,0.5), 0 1px 0 rgba(255,255,255,0.6) inset;
+    font-size: 14px;
+    color: var(--ink-soft);
+    position: relative;
+    z-index: 5;
+    transform: translateY(0);
+    transition: transform 500ms cubic-bezier(.22,.9,.28,1);
+  }
+  .sender-chip.sending { animation: chip-nudge 640ms cubic-bezier(.22,.9,.28,1); }
+  @keyframes chip-nudge {
+    0% { transform: translateY(0) scale(1); }
+    38% { transform: translateY(-4px) scale(1.03); }
+    100% { transform: translateY(0) scale(1); }
+  }
+  .avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--font-brand); font-weight: 600; font-size: 15px;
+    color: #fff; flex: none;
+    background: linear-gradient(150deg, var(--terra), #a9502f);
+    box-shadow: 0 2px 6px rgba(59,46,36,0.28);
+  }
+  .sender-chip b { font-weight: 600; color: var(--ink); }
+  .sender-chip .verb { color: var(--sage-deep); font-weight: 600; }
+
+  /* ---- fan of phones ---- */
+  .fan {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0;
+    position: relative;
+  }
+  .phone {
+    position: relative;
+    width: 168px;
+    aspect-ratio: 168 / 340;
+    border-radius: 30px;
+    background: linear-gradient(145deg, #1a1c20, #050608);
+    padding: 6px;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.5) inset,
+                0 30px 56px -26px rgba(30,34,42,0.55),
+                0 8px 20px -14px rgba(30,34,42,0.5);
+    transform-origin: bottom center;
+    flex: none;
+  }
+  /* fanned arc: outer phones rotate + drop, center is hero */
+  .phone.p0 { transform: rotate(-9deg) translateY(20px) scale(0.9);  margin-right: -30px; z-index: 1; }
+  .phone.p1 { transform: rotate(0deg)  translateY(-6px) scale(1.02); z-index: 3; }
+  .phone.p2 { transform: rotate(9deg)  translateY(20px) scale(0.9);  margin-left: -30px;  z-index: 1; }
+
+  .screen {
+    position: relative;
+    height: 100%; width: 100%;
+    border-radius: 25px;
+    overflow: hidden;
+    background: radial-gradient(140% 65% at 78% 8%, rgba(255,255,255,0.5), transparent 55%),
+                linear-gradient(178deg, var(--wall-top) 0%, #dfd9cf 52%, var(--wall-bot) 100%);
+    display: flex; flex-direction: column;
+  }
+  .screen::before {
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background: radial-gradient(40% 26% at 24% 26%, rgba(228,166,79,0.16), transparent 70%),
+                radial-gradient(46% 30% at 82% 68%, rgba(124,148,105,0.14), transparent 72%);
+  }
+
+  .statusbar {
+    position: relative; z-index: 3;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 15px 2px;
+    font-size: 9px; font-weight: 700; color: var(--chrome-ink); letter-spacing: 0.2px;
+  }
+  .statusbar .right { display: flex; align-items: center; gap: 4px; }
+  .battery { width: 15px; height: 8px; border: 1px solid var(--chrome-ink); border-radius: 2.5px; position: relative; opacity: 0.9; }
+  .battery::after { content:""; position:absolute; right:-2px; top:2.2px; width:1.4px; height:3.5px; border-radius:0 2px 2px 0; background: var(--chrome-ink); }
+  .battery i { position:absolute; inset:1px; width:66%; border-radius:1px; background: var(--chrome-ink); display:block; }
+
+  .home { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; padding: 6px 11px 0; min-height: 0; }
+
+  /* ---- compact Bough widget ---- */
+  .widget {
+    position: relative;
+    border-radius: 16px;
+    background: linear-gradient(168deg, var(--paper) 0%, var(--paper-2) 100%);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset,
+                0 10px 18px -12px rgba(59,46,36,0.42);
+    padding: 8px;
+    display: grid; grid-template-columns: 44% 1fr; gap: 8px;
+    overflow: hidden;
+    transition: transform 620ms cubic-bezier(.22,.9,.28,1), box-shadow 620ms ease;
+  }
+  /* the synchronized light-up */
+  .widget.lit {
+    box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset,
+                0 14px 26px -12px rgba(59,46,36,0.5),
+                0 0 0 2px rgba(228,166,79,0.55),
+                0 0 26px 2px rgba(228,166,79,0.4);
+  }
+  .widget.pop { animation: widget-pop 900ms cubic-bezier(.22,.9,.28,1); }
+  @keyframes widget-pop {
+    0% { transform: translateY(0) scale(1); }
+    30% { transform: translateY(-3px) scale(1.03); }
+    100% { transform: translateY(0) scale(1); }
+  }
+
+  .photo { position: relative; border-radius: 11px; overflow: hidden; aspect-ratio: 1/1.05; background: var(--paper-2); }
+  .photo svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .photo .frame { position:absolute; inset:0; border-radius:11px; box-shadow: 0 0 0 2px rgba(247,241,227,0.9) inset; }
+  .scene { position:absolute; inset:0; opacity:0; transform: scale(1.05); transition: opacity 500ms ease, transform 700ms cubic-bezier(.22,.9,.28,1); }
+  .scene.active { opacity:1; transform: scale(1); }
+
+  .meta { position: relative; display: flex; flex-direction: column; min-width: 0; }
+  .brandrow { display:flex; align-items:center; gap:4px; }
+  .wordmark { font-family: var(--font-brand); font-weight:600; font-size:10px; color: var(--ink); }
+  .newdot { margin-left:auto; width:6px; height:6px; border-radius:50%; background: var(--terra); opacity:0; transition: opacity 260ms ease; }
+  .newdot.show { opacity:1; animation: pulse 1400ms ease-out 2; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(201,106,68,0.55); }
+    70% { box-shadow: 0 0 0 7px rgba(201,106,68,0); }
+    100% { box-shadow: 0 0 0 0 rgba(201,106,68,0); }
+  }
+  .txt { margin-top: auto; }
+  .swap { transition: opacity 340ms ease, transform 500ms cubic-bezier(.22,.9,.28,1); }
+  .swap.out { opacity: 0; transform: translateY(6px); }
+  .sender-name { font-family: var(--font-brand); font-weight:600; font-size:14px; line-height:1.02; color: var(--ink); margin:0 0 1px; }
+  .metaline { font-size:8px; font-weight:600; color: var(--sage-deep); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .note { font-size:8.5px; line-height:1.28; color: var(--ink-soft); margin:3px 0 0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+
+  /* recipient label under each phone */
+  .who { text-align:center; font-size:11px; color: var(--ink-soft); margin-top:2px; font-weight:500; }
+
+  .grid { display:grid; grid-template-columns: repeat(4,1fr); row-gap:7px; justify-items:center; margin-top:9px; }
+  .app { width:24px; height:24px; border-radius:7px; box-shadow: 0 3px 7px rgba(40,44,52,0.16); }
+
+  .home-indicator { position:absolute; left:50%; bottom:5px; transform:translateX(-50%); width:56px; height:3px; border-radius:2px; background: rgba(35,38,43,0.4); z-index:4; }
+
+  .caption {
+    text-align: center; max-width: 440px; font-size: 14px; color: var(--ink-soft); line-height: 1.45;
+  }
+  .caption .k { font-family: var(--font-brand); color: var(--ink); font-weight: 600; }
+
+  /* responsive: tighten the fan on small screens */
+  @media (max-width: 560px) {
+    .phone { width: 30vw; max-width: 168px; }
+    .phone.p0 { margin-right: -6vw; }
+    .phone.p2 { margin-left: -6vw; }
+    .app { width: 5.4vw; height: 5.4vw; max-width: 24px; max-height: 24px; }
+  }
+  @media (max-width: 380px) {
+    .sender-chip { font-size: 12.5px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .widget, .scene, .swap, .sender-chip { transition: none !important; animation: none !important; }
+    .newdot.show { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <div class="sender-chip" id="chip" role="status">
+      <span class="avatar" id="chipAvatar">M</span>
+      <span><b id="chipName">Maya</b> <span class="verb">sent a postcard</span></span>
+    </div>
+
+    <div class="fan" id="fan" role="img" aria-label="One family member sends a Bough postcard and it appears at the same moment on every family member's iPhone home-screen widget.">
+      <!-- three phones injected here -->
+    </div>
+
+    <p class="caption">A <span class="k">Bough</span> postcard goes to the whole family at once. One send, and it lands on everyone's home screen together.</p>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* scene SVGs (shared with the postcard-widget language) */
+  function sceneBeach() {
+    return '<svg viewBox="0 0 100 105" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'
+      + '<defs><linearGradient id="bs'+uid+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4d9a6"/><stop offset="1" stop-color="#f7ecd2"/></linearGradient>'
+      + '<linearGradient id="bw'+uid+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fb0a4"/><stop offset="1" stop-color="#6f958c"/></linearGradient></defs>'
+      + '<rect width="100" height="105" fill="url(#bs'+uid+')"/><circle cx="70" cy="30" r="13" fill="#e9b25f" opacity="0.9"/>'
+      + '<path d="M0 58 Q25 52 50 57 T100 56 V80 H0 Z" fill="url(#bw'+uid+')"/>'
+      + '<path d="M0 74 Q30 68 55 73 T100 72 V105 H0 Z" fill="#e6cfa4"/>'
+      + '<path d="M0 88 Q34 82 60 87 T100 86 V105 H0 Z" fill="#dcbf8f"/></svg>';
+  }
+  function sceneGarden() {
+    return '<svg viewBox="0 0 100 105" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'
+      + '<defs><linearGradient id="gs'+uid+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf0dd"/><stop offset="1" stop-color="#f4ecd6"/></linearGradient>'
+      + '<linearGradient id="gf'+uid+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8aa06d"/><stop offset="1" stop-color="#5e7a52"/></linearGradient></defs>'
+      + '<rect width="100" height="105" fill="url(#gs'+uid+')"/><path d="M0 60 Q50 50 100 60 V105 H0 Z" fill="url(#gf'+uid+')"/>'
+      + '<circle cx="24" cy="58" r="4.5" fill="#e4a64f"/><circle cx="52" cy="52" r="5" fill="#efd0dd"/><circle cx="78" cy="60" r="4.5" fill="#e9b9c8"/>'
+      + '<rect x="23.2" y="58" width="1.6" height="20" fill="#5e7a52"/><rect x="51.2" y="52" width="1.6" height="26" fill="#5e7a52"/><rect x="77.2" y="60" width="1.6" height="20" fill="#5e7a52"/></svg>';
+  }
+  function sceneKitchen() {
+    return '<svg viewBox="0 0 100 105" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'
+      + '<defs><linearGradient id="ks'+uid+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6ead0"/><stop offset="1" stop-color="#eaddc2"/></linearGradient></defs>'
+      + '<rect width="100" height="105" fill="url(#ks'+uid+')"/><rect x="0" y="68" width="100" height="37" fill="#d8bd93"/>'
+      + '<ellipse cx="50" cy="70" rx="30" ry="11" fill="#f4ecdc"/><ellipse cx="50" cy="66" rx="16" ry="6" fill="#e4a64f"/>'
+      + '<ellipse cx="52" cy="61" rx="4" ry="2" fill="#c96a44"/><circle cx="74" cy="34" r="9" fill="#f0d59a" opacity="0.8"/></svg>';
+  }
+  var uid = 0;
+
+  var cards = [
+    { avatar:"M", who:"Maya",  scene: sceneBeach,   name:"Maya",  meta:"Aug 14 · Cape Cod",    note:"Found this at grandma's beach house." },
+    { avatar:"D", who:"Dad",   scene: sceneGarden,  name:"Dad",   meta:"Sep 12 · The garden",  note:"The garden finally bloomed." },
+    { avatar:"N", who:"Nora",  scene: sceneKitchen, name:"Nora",  meta:"Sep 15 · Sunday",      note:"Pancakes again. Third weekend running." }
+  ];
+
+  var iconColors = [["#e9b463","#d98b52"],["#8fb0a4","#5e7a52"],["#c7d3dd","#93a6b6"],["#e4a4a0","#c96a44"],["#b9c4a0","#7c9469"],["#d8c7e0","#a894c0"],["#f0dca0","#e4a64f"],["#a9c2c9","#6f958c"]];
+
+  var fan = document.getElementById("fan");
+  var phones = [];
+
+  for (var p = 0; p < 3; p++) {
+    uid++;
+    var phone = document.createElement("div");
+    phone.className = "phone p" + p;
+    var iconsHTML = "";
+    for (var k = 0; k < 8; k++) {
+      var c = iconColors[(k + p) % iconColors.length];
+      iconsHTML += '<div class="app" style="background:linear-gradient(150deg,'+c[0]+','+c[1]+')"></div>';
+    }
+    phone.innerHTML =
+      '<div class="screen">'
+      + '<div class="statusbar"><span class="clock">9:41</span><span class="right"><span class="battery"><i></i></span></span></div>'
+      + '<div class="home">'
+      +   '<div class="widget">'
+      +     '<div class="photo"><div class="frame"></div><div class="scene"></div></div>'
+      +     '<div class="meta"><div class="brandrow"><span class="wordmark">Bough</span><span class="newdot"></span></div>'
+      +       '<div class="txt"><div class="swap"><h2 class="sender-name"></h2><div class="metaline"></div><p class="note"></p></div></div>'
+      +     '</div>'
+      +   '</div>'
+      +   '<div class="grid">' + iconsHTML + '</div>'
+      + '</div>'
+      + '<div class="home-indicator"></div>'
+      + '</div>';
+    fan.appendChild(phone);
+
+    phones.push({
+      el: phone,
+      widget: phone.querySelector(".widget"),
+      scene: phone.querySelector(".scene"),
+      swap: phone.querySelector(".swap"),
+      name: phone.querySelector(".sender-name"),
+      metaline: phone.querySelector(".metaline"),
+      note: phone.querySelector(".note"),
+      newdot: phone.querySelector(".newdot")
+    });
+  }
+
+  function paintAll(card) {
+    phones.forEach(function (ph) {
+      ph.scene.innerHTML = card.scene();
+      // force reflow then activate for the cross-fade
+      void ph.scene.offsetWidth;
+      ph.scene.classList.add("active");
+      ph.name.textContent = card.name;
+      ph.metaline.textContent = card.meta;
+      ph.note.textContent = card.note;
+    });
+  }
+
+  var chip = document.getElementById("chip");
+  var chipName = document.getElementById("chipName");
+  var chipAvatar = document.getElementById("chipAvatar");
+
+  // initial static frame
+  var idx = 0;
+  paintAll(cards[0]);
+  chipName.textContent = cards[0].who;
+  chipAvatar.textContent = cards[0].avatar;
+  phones.forEach(function (ph) { ph.widget.classList.add("lit"); });
+
+  if (reduce) return;
+
+  // start unlit for the first cycle, then light up
+  phones.forEach(function (ph) { ph.widget.classList.remove("lit"); });
+
+  var HOLD = 4000;
+
+  function lightUp() {
+    // synchronized: chip nudges, all widgets pop + light + new dot together
+    chip.classList.remove("sending"); void chip.offsetWidth; chip.classList.add("sending");
+    phones.forEach(function (ph) {
+      ph.widget.classList.add("lit");
+      ph.widget.classList.remove("pop"); void ph.widget.offsetWidth; ph.widget.classList.add("pop");
+      ph.newdot.classList.add("show");
+      setTimeout(function () { ph.newdot.classList.remove("show"); }, 2600);
+    });
+  }
+
+  function cycle() {
+    // fade text out on all, dim, then swap card + light up together
+    phones.forEach(function (ph) {
+      ph.swap.classList.add("out");
+      ph.scene.classList.remove("active");
+      ph.widget.classList.remove("lit");
+    });
+    idx = (idx + 1) % cards.length;
+    var next = cards[idx];
+    setTimeout(function () {
+      chipName.textContent = next.who;
+      chipAvatar.textContent = next.avatar;
+      paintAll(next);
+      phones.forEach(function (ph) { ph.swap.classList.remove("out"); });
+      lightUp();
+    }, 460);
+    setTimeout(cycle, HOLD + 460);
+  }
+
+  // first light-up shortly after load
+  setTimeout(lightUp, 700);
+  setTimeout(cycle, HOLD);
+})();
+</script>
+</body>
+</html>
