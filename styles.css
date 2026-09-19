@@ -313,41 +313,31 @@ p { margin: 0; }
   color: var(--muted);
 }
 
-/* the hand-drawn family tree sits directly on the paper (no card) */
-.tree-stage {
-  grid-column: span 6;
-  margin-top: 56px;          /* its top sits 56px below the hero grid top */
-  margin-left: -8px;
-  max-width: 540px;
-  width: 100%;
-  overflow: visible;
-}
-.tree-stage svg { width: 100%; height: auto; display: block; }
-.tree-caption {
-  margin: 12px 0 0;
-  max-width: 42ch;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.4;
-}
+.hero-inner { align-items: center; }
+.hero-visual { grid-column: span 6; display: flex; justify-content: center; }
 
 @media (min-width: 1024px) {
   .hero .lead { font-size: 19px; line-height: 1.5; }
 }
 @media (max-width: 1023px) {
   .hero { padding: 28px 0 16px; }
-  .hero-inner { row-gap: 28px; }
-  .tree-stage { margin: 0; max-width: 420px; }
+  .hero-inner { row-gap: 32px; align-items: start; }
 }
 
-/* hero tree is static (the reveal tree is the single drawing moment) */
-.branch {
-  fill: none;
-  stroke: var(--line);
-  stroke-width: 2.4;
-  stroke-linecap: round;
+/* --------------------------------------- phone frame (real product screens) */
+/* honest to the app UI: a warm bezel + soft shadow, screenshot clipped inside */
+.phone {
+  --phone-w: 300px;
+  width: 100%;
+  max-width: var(--phone-w);
+  margin-inline: auto;
+  background: #2b2419;
+  border-radius: 46px;
+  padding: 7px;
+  box-shadow: 0 20px 44px rgba(67, 58, 44, 0.20), 0 4px 12px rgba(67, 58, 44, 0.12);
 }
-.person { transform-box: fill-box; transform-origin: center; }
+.phone img { display: block; width: 100%; height: auto; border-radius: 40px; }
+.phone.small { --phone-w: 208px; }
 
 /* --------------------------------------- the group-chat problem + privacy */
 .problem { padding: 36px 0; }
@@ -359,10 +349,10 @@ p { margin: 0; }
 
 /* --------------------------------------- feature demos (copy + a visual) */
 .split { align-items: center; }
-.split-copy { grid-column: span 4; }
+.split-copy { grid-column: span 5; }
 .split-copy h2 { max-width: 18ch; }
-.split-copy p { color: var(--ink-caption); margin-top: 20px; max-width: 40ch; }
-.split-visual { grid-column: span 8; overflow: visible; }
+.split-copy p { color: var(--ink-caption); margin-top: 20px; max-width: 42ch; }
+.split-visual { grid-column: span 7; overflow: visible; }
 .split-visual svg { width: 100%; max-width: 440px; height: auto; display: block; margin-inline: auto; }
 
 .feature { padding: 36px 0; }
@@ -393,62 +383,137 @@ p { margin: 0; }
   .anim-frame { max-width: 400px; }
 }
 
+/* --------------------------------------- 3. what a memory can be */
+.memories { padding: 36px 0; }
+.mem-grid { align-items: center; }
+.mem-copy { grid-column: span 5; }
+.mem-copy .lead { margin-top: 20px; max-width: 40ch; }
+.mem-nod { margin-top: 16px; max-width: 42ch; color: var(--muted); font-size: 15px; line-height: 1.55; }
+.mem-visual {
+  grid-column: span 7;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+/* the two paired phones: the second sits a touch lower for a natural stagger */
+.mem-visual .phone { --phone-w: 250px; }
+.mem-visual .phone:nth-child(2) { margin-top: 40px; }
+
+.type-row {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.type-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-caption);
+}
+.type-chip svg { width: 18px; height: 18px; color: var(--sage-deep); flex: none; }
+
+@media (max-width: 1023px) {
+  .memories { padding: 24px 0; }
+  .mem-visual { gap: 16px; }
+  .mem-visual .phone { --phone-w: 230px; }
+  .mem-visual .phone:nth-child(2) { margin-top: 0; }
+}
+@media (max-width: 460px) {
+  .mem-visual { flex-direction: column; align-items: center; }
+}
+
+/* --------------------------------------- 4. tree sub-beat (demoted) */
+.subbeat {
+  align-items: center;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--hairline-soft);
+}
+.subbeat-copy { grid-column: span 7; }
+.subbeat-copy h3 { max-width: 18ch; }
+.subbeat-copy p { color: var(--ink-caption); margin-top: 14px; max-width: 44ch; }
+.subbeat-visual { grid-column: span 5; display: flex; justify-content: center; }
+@media (max-width: 1023px) {
+  .subbeat { margin-top: 28px; padding-top: 24px; }
+}
+
+/* --------------------------------------- 6. keepsakes intro */
+.keepsakes-intro { padding: 40px 0 20px; }
+@media (max-width: 1023px) { .keepsakes-intro { padding: 24px 0 8px; } }
+
+/* --------------------------------------- 7. privacy share options */
+.share-options {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  max-width: 520px;
+}
+.share-card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+.share-card svg { width: 26px; height: 26px; color: var(--sage-deep); }
+.share-card h3 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 17px;
+  margin: 12px 0 4px;
+}
+.share-card p { color: var(--muted); font-size: 14px; line-height: 1.5; }
+@media (max-width: 460px) {
+  .share-options { grid-template-columns: 1fr; }
+}
+
 /* --------------------------------------------------------------- the ending field */
 .ending { background: var(--surface-alt); }
 
-/* --------------------------------------- 5.9 pricing */
+/* --------------------------------------- 8. pricing */
 .pricing { padding: 56px 0 24px; }
 .pricing h2 { max-width: 18ch; }
-.pricing .price-intro .lead { margin-top: 12px; max-width: 48ch; }
-.price-grid { margin-top: 28px; align-items: start; }
-.plan { display: flex; flex-direction: column; align-items: flex-start; }
-.plan.free { grid-column: span 5; padding: 32px 0 0; }
-.plan.featured {
-  grid-column: span 7;
-  background: var(--surface);
-  border: 1px solid var(--hairline);
-  border-radius: 18px;
-  padding: 32px;
-  box-shadow: var(--shadow-card);
-}
-.plan .plan-name { font-family: var(--serif); font-weight: 600; font-size: 1.35rem; margin: 0; }
-.plan .price {
-  font-family: var(--serif);
+.pricing .price-intro .lead { margin-top: 12px; max-width: 52ch; }
+
+.price-body { margin-top: 32px; align-items: center; }
+.price-visual { grid-column: span 5; display: flex; justify-content: center; }
+.price-detail { grid-column: span 7; }
+.price-detail-lead {
+  font-family: var(--sans);
   font-weight: 600;
-  font-size: 52px;
-  line-height: 1.1;
+  font-size: 18px;
   color: var(--ink);
-  margin-top: 12px;
 }
-.plan .price span { font-family: var(--sans); font-size: 1rem; font-weight: 500; color: var(--muted); }
-.plan .price-alt { color: var(--muted); font-size: 0.98rem; margin-top: 6px; }
-.plan .plan-sub { color: var(--muted); font-size: 17px; margin-top: 20px; }
-.plan.free .plan-sub { max-width: 32ch; }
-.plan.featured .plan-sub { max-width: 40ch; }
-.plan ul {
+.price-detail ul {
   list-style: none;
-  margin: 20px 0 0;
+  margin: 18px 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  align-self: stretch;
 }
-.plan li {
+.price-detail li {
   display: flex;
   gap: 0.65rem;
   align-items: flex-start;
   font-size: 17px;
   color: var(--ink-caption);
 }
-.plan li svg { flex: none; width: 22px; height: 22px; color: var(--sage-deep); margin-top: 1px; }
-.plan .btn { margin-top: 24px; align-self: flex-start; }
+.price-detail li svg { flex: none; width: 22px; height: 22px; color: var(--sage-deep); margin-top: 1px; }
+.price-free { color: var(--muted); font-size: 15px; margin-top: 20px; max-width: 46ch; line-height: 1.55; }
+.price-detail .btn { margin-top: 24px; }
 @media (max-width: 1023px) {
   .pricing { padding: 32px 0 16px; }
-  .price-grid { row-gap: 28px; }
-  .plan .price { font-size: 40px; }
-  .plan.free { padding-top: 0; }
-  .plan.featured { padding: 24px; border-radius: 16px; }
+  .price-body { row-gap: 28px; }
 }
 
 /* --------------------------------------- 5.10 closing */
@@ -507,24 +572,6 @@ p { margin: 0; }
 }
 @media (max-width: 1023px) {
   .site-footer { padding: 12px 0 calc(16px + env(safe-area-inset-bottom, 0px)); }
-}
-
-/* --------------------------------------- life moments on the hero tree */
-.life { transform-box: fill-box; transform-origin: center; }
-.life-cap {
-  font-family: var(--sans);
-  font-size: 13px;
-  fill: var(--muted);
-}
-.life-mark { font-family: var(--sans); font-weight: 600; font-size: 12px; letter-spacing: 0.02em; fill: var(--sage-deep); }
-/* the amber "added today" dot pulses gently; the mark stays visible at rest */
-.pulse { transform-box: fill-box; transform-origin: center; }
-@media (prefers-reduced-motion: no-preference) {
-  .pulse { animation: pulse 2.6s ease-in-out 1s infinite; }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.85; transform: scale(1); }
-    50% { opacity: 0.35; transform: scale(1.7); }
-  }
 }
 
 /* --------------------------------------- counsel-review block (legal docs) */
